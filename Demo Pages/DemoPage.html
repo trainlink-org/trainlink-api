@@ -14,8 +14,36 @@
 		<!--Main content -->
 		<h1>Trainlink API Demo</h1>
 		
-		<script>
+		<!-- Shows active train -->
+		<h2>[Train Name]</h2>
+		<br>
 		
+		<!-- Speed control slider -->
+		<div class="slideContainer">
+			<p id="speedValue">0</p>
+			<input type="range" min="-126" max="126" value="0" class="slider" id="speedControl"> 
+		</div>
+		
+		<br>
+		
+		<!-- Break buttons -->
+		<div class="breakContainer">
+			<button>Stop</button>
+			<button>Emergency Stop</button>
+		</div>
+		
+		<script>
+			initiateTrainLink("ws://127.0.0.1:6789");
+			
+			var slider = document.getElementById("speedControl");
+			
+			slider.oninput = function (event) {
+				setSpeed("0","0","0");
+			}
+			
+			function update() {
+				
+			}
 		</script>
 	</body>
 </html>
