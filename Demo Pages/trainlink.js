@@ -1,5 +1,17 @@
 function initiateTrainLink(ipAddress) {
-	
+	websocket = new WebSocket(ipAddress);
+	websocket.onmessage = function (event) {
+		data = JSON.parse(event.data);
+		if (data.type == "config") {
+			/*Set up config variables here*/
+		} else {
+			try {
+				update(data)
+			} catch (err) {
+				throw("Error - Update function missing!")
+			}
+		}
+	}
 }
 
 function setSpeed(address, speed, localDirection=-1) { 
@@ -7,6 +19,8 @@ function setSpeed(address, speed, localDirection=-1) {
 		Speed: New speed for loco
 		localDirection: set direction
 	*/
+
+	/*	If enabled in the server config xml, the name associated with the train can be used instead of the numerical address */
 	
 	/*	There are multiple ways to change the direction of the current train.
 		1. Use the localDirection parameter
@@ -30,7 +44,7 @@ function setSpeed(address, speed, localDirection=-1) {
 	}
 	
 	/* Sends the packet to the API server */
-	websocket.send(JSON.stringify({action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: direction}));
+	websocket.send(JSON.stringify({action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: localDirection}));
 }
 
 function stopCab(address) {
