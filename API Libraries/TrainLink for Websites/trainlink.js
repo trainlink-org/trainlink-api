@@ -44,13 +44,13 @@ function setSpeed(address, speed, localDirection=-1) {
 	}
 	
 	/* Sends the packet to the API server */
-	websocket.send(JSON.stringify({action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: localDirection}));
+	websocket.send(JSON.stringify({class: "cabControl", action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: localDirection}));
 }
 
 function stopCab(address) {
-	websocket.send(JSON.stringify({action: "stop", cabAddress: address}));
+	websocket.send(JSON.stringify({class: "cabControl", action: "stop", cabAddress: address}));
 }
 
 function estopCab(address) {
-	websocket.send(JSON.stringify({action: "estop", cabAddress: address}));
+	websocket.send(JSON.stringify({class: "cabControl", action: "estop", cabAddress: address}));
 }
