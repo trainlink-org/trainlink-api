@@ -2,8 +2,12 @@
 <config>
     <cabs>
         <cab>
-            <name>Drummond</name>
-            <address>003</address>
+            <name>Train1</name>
+            <address>001</address>
+        </cab>
+        <cab>
+            <name>Train2</name>
+            <address>002</address>
         </cab>
     </cabs>
 </config>
