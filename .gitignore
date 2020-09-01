@@ -15,3 +15,4 @@ sync.bat
 Demo Pages/SyncToy_0a62a2e6-352d-4984-b032-10e71b23f752.dat
 API Libraries/TrainLink for Websites/SyncToy_17e7da3c-9a10-4d31-b0b9-67ac5329eff7.dat
 API Server/__pycache__/trainlinkWeb.cpython-37.pyc
+API Server/__pycache__/webUtils.cpython-38.pyc

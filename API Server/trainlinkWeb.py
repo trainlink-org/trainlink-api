@@ -1,10 +1,13 @@
+import webUtils as utils
 import websockets, asyncio, logging, json
 
 class web:
     """ Serves websocket users """
     address = ""
     port = ""
-    USERS = set()
+    users = set()
+    cabID = {"Drummond": "003"}
+    cabs = set()
 
     def __init__ (self, address, port):
         logging.basicConfig()
@@ -16,6 +19,7 @@ class web:
         start_server = websockets.serve(main, self.address, self.port)
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
+
     
 async def main (websocket, path):
     await register(websocket)
@@ -25,17 +29,23 @@ async def main (websocket, path):
             data = json.loads(message)
             if data["class"] == "cabControl":
                 print("cabControl")
+                cabControl(data)
 
     finally:
         await unregister(websocket)
 
 async def register(websocket):
-    web.USERS.add(websocket)
+    web.users.add(websocket)
     print(websocket)
 
 async def unregister(websocket):
-    web.USERS.remove(websocket)
+    web.users.remove(websocket)
 
 def state_event():
     return json.dumps({"type": "state"})
+
+def cabControl(data):
+    if data["action"] == "setSpeed":
+        address = utils.obtainAddress(data["cabAddress"], web.cabID)
+        print(address)
     

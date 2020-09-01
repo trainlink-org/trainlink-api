@@ -1,4 +1,5 @@
-import trainlinkSerial, trainlinkWeb, trainlinkUtils, threading
+import trainlinkSerial, trainlinkWeb, trainlinkUtils
+import threading
 
 socketAddress = "127.0.0.1"
 socketPort = "6789"
