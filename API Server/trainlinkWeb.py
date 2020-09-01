@@ -1,18 +1,22 @@
 import webUtils as utils
 import websockets, asyncio, logging, json
 
+cabID = {}
+
 class web:
     """ Serves websocket users """
     address = ""
     port = ""
     users = set()
-    cabID = {"Drummond": "003"}
+    
     cabs = set()
 
-    def __init__ (self, address, port):
+    def __init__ (self, address, port, cabIDXml):
         logging.basicConfig()
         self.address = address
         self.port = port
+        global cabID
+        cabID = cabIDXml
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
@@ -46,6 +50,6 @@ def state_event():
 
 def cabControl(data):
     if data["action"] == "setSpeed":
-        address = utils.obtainAddress(data["cabAddress"], web.cabID)
+        address = utils.obtainAddress(data["cabAddress"], cabID)
         print(address)
     
