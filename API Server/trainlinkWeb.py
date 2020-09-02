@@ -2,6 +2,7 @@ import webUtils as utils
 import websockets, asyncio, logging, json
 
 cabID = {}
+cabs = {}
 
 class web:
     """ Serves websocket users """
@@ -9,14 +10,18 @@ class web:
     port = ""
     users = set()
     
-    cabs = set()
+    
 
-    def __init__ (self, address, port, cabIDXml):
+    def __init__ (self, address, port, cabIDxml):
         logging.basicConfig()
         self.address = address
         self.port = port
         global cabID
-        cabID = cabIDXml
+        global cabs
+        cabID = cabIDxml
+        for cab in cabIDxml:
+            cabs[cabIDxml[cab]] = 0
+        print(cabs)
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
