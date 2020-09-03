@@ -43,13 +43,14 @@
 				title = document.getElementById("trainName"),
 				speedValue = document.getElementById("speedValue")
 				cabSpeeds = [],
+				cabDirections = [],
 				activeCab = "",
 				cabList = document.getElementById("cabList");
 			
 			slider.disabled = true;
 			
 			slider.oninput = function (event) {
-				setSpeed(activeCab,slider.value,"0");
+				setSpeed(activeCab,slider.value);
 			}
 			
 			function config(data) {
@@ -70,8 +71,11 @@
 
 			function update(data) {
 				cabID  = cabValues.findIndex(searchArray, data.cab);
+				cabDirections[cabKeys[cabID]] = data.direction;
 				cabSpeeds[cabKeys[cabID]] = data.speed;
-				//console.log(Object.entries(cabSPeed))
+				if (!(cabDirections[cabKeys[cabID]]) && cabSpeeds[cabKeys[cabID]] != 0){
+					cabSpeeds[cabKeys[cabID]] = "-" + String(cabSpeeds[cabKeys[cabID]]);
+				}
 				if (cabSpeeds[activeCab] != undefined) {
 					speedValue.innerHTML = cabSpeeds[activeCab];
 					slider.value = cabSpeeds[activeCab];

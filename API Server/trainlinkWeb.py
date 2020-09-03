@@ -2,7 +2,8 @@ import webUtils as utils
 import websockets, asyncio, logging, json
 
 cabID = {}
-cabs = {}
+cabSpeeds = {}
+cabDirections = {}
 
 class web:
     """ Serves websocket users """
@@ -17,10 +18,12 @@ class web:
         self.address = address
         self.port = port
         global cabID
-        global cabs
+        global cabSpeeds
+        global cabDirections
         cabID = cabIDxml
         for cab in cabIDxml:
-            cabs[cabIDxml[cab]] = 0
+            cabSpeeds[cabIDxml[cab]] = 0
+            cabDirections[cabIDxml[cab]] = 0
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
@@ -40,7 +43,6 @@ class web:
             async for message in websocket:
                 data = json.loads(message)
                 if data["class"] == "cabControl":
-                    #print("cabControl")
                     self.cabControl(data)
                     await self.notifyState(websocket)
         finally:
@@ -54,11 +56,12 @@ class web:
         web.users.remove(websocket)
 
     async def stateEvent(self, websocket):
-        for cab in cabs:
-            await websocket.send(json.dumps({"type": "state", "cab": cab, "speed": cabs[cab]}))
+        for cab in cabSpeeds:
+            await websocket.send(json.dumps({"type": "state", "cab": cab, "speed": cabSpeeds[cab], "direction": cabDirections[cab]}))
     
     def cabControl(self, data):
         if data["action"] == "setSpeed":
             address = utils.obtainAddress(data["cabAddress"], cabID)
-            cabs[address] = data["cabSpeed"]
+            cabSpeeds[address] = data["cabSpeed"]
+            cabDirections[address] = data["cabDirection"]
     
