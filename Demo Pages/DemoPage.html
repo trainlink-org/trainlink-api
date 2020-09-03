@@ -15,7 +15,7 @@
 		<h1>Trainlink API Demo</h1>
 		
 		<!-- Shows active train -->
-		<h2>[Train Name]</h2>
+		<h2 id="trainName">Select a Train</h2>
 		<br>
 		
 		<!-- Speed control slider -->
@@ -32,17 +32,62 @@
 			<button>Emergency Stop</button>
 		</div>
 		
+		<br>
+
+		<div id="cabList"></div>
+
 		<script>
 			initiateTrainLink("ws://127.0.0.1:6789");
 			
-			var slider = document.getElementById("speedControl");
+			var slider = document.getElementById("speedControl"),
+				title = document.getElementById("trainName"),
+				speedValue = document.getElementById("speedValue")
+				cabSpeeds = [],
+				activeCab = "",
+				cabList = document.getElementById("cabList");
+			
+			slider.disabled = true;
 			
 			slider.oninput = function (event) {
-				setSpeed("Train1","0","0");
+				setSpeed(activeCab,slider.value,"0");
 			}
 			
-			function update() {
-				
+			function config(data) {
+				cabs = data.cabs
+				cabKeys = Object.keys(cabs);
+				cabValues = Object.values(cabs);
+				cabButtons = [];
+				for (cabNum = 0; cabNum < cabKeys.length; cabNum++) {
+					cabSpeeds[cabKeys[cabNum]] = "0"
+					cabButtons.push(document.createElement("BUTTON"));
+					cabButtons[cabNum].innerHTML = cabKeys[cabNum];
+					cabButtons[cabNum].setAttribute("onclick", "changeCab(\""+cabKeys[cabNum]+"\")");
+					cabList.appendChild(cabButtons[cabNum]);
+					cabList.appendChild(document.createTextNode("\t"));
+				}
+				//console.log(cabSpeeds)
+			}
+
+			function update(data) {
+				cabID  = cabValues.findIndex(searchArray, data.cab);
+				cabSpeeds[cabKeys[cabID]] = data.speed;
+				//console.log(Object.entries(cabSPeed))
+				if (cabSpeeds[activeCab] != undefined) {
+					speedValue.innerHTML = cabSpeeds[activeCab];
+					slider.value = cabSpeeds[activeCab];
+				}
+			}
+			
+			function searchArray(current) {
+				return current == this;
+			}
+
+			function changeCab(cabName) {
+				slider.disabled = false;
+				title.innerHTML = cabName;
+				activeCab = cabName;
+				slider.value = cabSpeeds[activeCab];
+				speedValue.innerHTML = cabSpeeds[activeCab];
 			}
 		</script>
 	</body>

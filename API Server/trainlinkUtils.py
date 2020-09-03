@@ -14,8 +14,11 @@ class xmlUtils:
             path = self.path
 
         try:
+            file = open(path)
+            file.close()
             with open(path) as file:
                 self.xmlFile = xmltodict.parse(file.read())
+                file.close()
             return self.xmlFile
         except FileNotFoundError:
             return 1

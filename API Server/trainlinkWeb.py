@@ -21,40 +21,44 @@ class web:
         cabID = cabIDxml
         for cab in cabIDxml:
             cabs[cabIDxml[cab]] = 0
-        print(cabs)
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
-        start_server = websockets.serve(main, self.address, self.port)
+        start_server = websockets.serve(self.main, self.address, self.port)
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
-
     
-async def main (websocket, path):
-    await register(websocket)
-    try:
-        await websocket.send(state_event())
-        async for message in websocket:
-            data = json.loads(message)
-            if data["class"] == "cabControl":
-                print("cabControl")
-                cabControl(data)
+    async def notifyState(self, websocket):
+        if self.users:
+            for user in self.users:
+                await self.stateEvent(user)
+    
+    async def main (self, websocket, path):
+        await self.register(websocket)
+        try:
+            await self.stateEvent(websocket)
+            async for message in websocket:
+                data = json.loads(message)
+                if data["class"] == "cabControl":
+                    #print("cabControl")
+                    self.cabControl(data)
+                    await self.notifyState(websocket)
+        finally:
+            await self.unregister(websocket)
 
-    finally:
-        await unregister(websocket)
+    async def register(self, websocket):
+        self.users.add(websocket)
+        await websocket.send(json.dumps({"type": "config", "cabs": cabID}))
 
-async def register(websocket):
-    web.users.add(websocket)
-    print(websocket)
+    async def unregister(self, websocket):
+        web.users.remove(websocket)
 
-async def unregister(websocket):
-    web.users.remove(websocket)
-
-def state_event():
-    return json.dumps({"type": "state"})
-
-def cabControl(data):
-    if data["action"] == "setSpeed":
-        address = utils.obtainAddress(data["cabAddress"], cabID)
-        print(address)
+    async def stateEvent(self, websocket):
+        for cab in cabs:
+            await websocket.send(json.dumps({"type": "state", "cab": cab, "speed": cabs[cab]}))
+    
+    def cabControl(self, data):
+        if data["action"] == "setSpeed":
+            address = utils.obtainAddress(data["cabAddress"], cabID)
+            cabs[address] = data["cabSpeed"]
     

@@ -4,11 +4,16 @@ function initiateTrainLink(ipAddress) {
 		data = JSON.parse(event.data);
 		if (data.type == "config") {
 			/*Set up config variables here*/
-		} else {
-			try {
-				update(data)
+			try{
+				config(data);
 			} catch (err) {
-				throw("Error - Update function missing!")
+				throw("Error - Config function missing!")
+			}
+	 	} else if (data.type == "state") {
+			try {
+				update(data);
+			} catch (err) {
+				throw("Error - Update function missing!");
 			}
 		}
 	}

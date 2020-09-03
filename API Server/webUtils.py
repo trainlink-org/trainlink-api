@@ -3,5 +3,8 @@ def obtainAddress(cabAddress, cabID):
         address = int(cabAddress)
         address = cabAddress
     except ValueError:
-        address = cabID[cabAddress]
+        try:
+            address = cabID[cabAddress]
+        except KeyError:
+            print("Bad key")
     return address

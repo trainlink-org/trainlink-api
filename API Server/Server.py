@@ -9,7 +9,9 @@ def main():
     pass
 
 xmlUtils = trainlinkUtils.xmlUtils(configFile)
-xmlUtils.loadXml()
+check = xmlUtils.loadXml()
+if check == 1:
+    print("FileLoad failed")
 cabs = xmlUtils.listCabs()
 
 #serial = trainlinkSerial()
