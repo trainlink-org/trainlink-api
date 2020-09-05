@@ -45,6 +45,8 @@ class web:
                 if data["class"] == "cabControl":
                     self.cabControl(data)
                     await self.notifyState(websocket)
+                if data["class"] == "directCommand":
+                    pass
         finally:
             await self.unregister(websocket)
 
@@ -64,4 +66,10 @@ class web:
             address = utils.obtainAddress(data["cabAddress"], cabID)
             cabSpeeds[address] = data["cabSpeed"]
             cabDirections[address] = data["cabDirection"]
+        elif data["action"] == "stop":
+            address = utils.obtainAddress(data["cabAddress"], cabID)
+            cabSpeeds[address] = "0"
+        elif data["action"] == "estop":
+            address = utils.obtainAddress(data["cabAddress"], cabID)
+            cabSpeeds[address] = "-1"
     

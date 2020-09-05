@@ -28,8 +28,8 @@
 		
 		<!-- Break buttons -->
 		<div class="breakContainer">
-			<button>Stop</button>
-			<button>Emergency Stop</button>
+			<button onclick="stopCab(activeCab)">Stop</button>
+			<button onclick="estopCab(activeCab)">Emergency Stop</button>
 		</div>
 		
 		<br>
@@ -52,7 +52,7 @@
 			slider.oninput = function (event) {
 				setSpeed(activeCab,slider.value);
 			}
-			
+
 			function config(data) {
 				cabs = data.cabs
 				cabKeys = Object.keys(cabs);
