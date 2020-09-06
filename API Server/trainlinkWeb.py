@@ -45,7 +45,9 @@ class web:
                 if data["class"] == "cabControl":
                     self.cabControl(data)
                     await self.notifyState(websocket)
-                if data["class"] == "directCommand":
+                elif data["class"] == "directCommand":
+                    pass
+                elif data["class"] == "power":
                     pass
         finally:
             await self.unregister(websocket)

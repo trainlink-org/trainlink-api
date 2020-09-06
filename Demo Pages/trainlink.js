@@ -59,5 +59,9 @@ function estopCab(address) {
 }
 
 function sendCommand(command) {
-	websocket.send(JSON.stringify({class: "directCommand", command: command}))
+	websocket.send(JSON.stringify({class: "directCommand", command: command}));
+}
+
+function setPower(state) {
+	websocket.send(JSON.stringify({class: "power", state: state}));
 }
