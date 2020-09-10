@@ -1,16 +1,18 @@
 function initiateTrainLink(ipAddress) {
+	/*	ipAddress: the ip address of the server */
+
+	/* Creates a websocket connected to the server */
 	websocket = new WebSocket(ipAddress);
+	/* what to do when a new message is recived */
 	websocket.onmessage = function (event) {
 		data = JSON.parse(event.data);
 		if (data.type == "config") {
-			/*Set up config variables here*/
 			try{
 				config(data);
 			} catch (err) {
 				throw("Error - Config function missing!")
 			}
 	 	} else if (data.type == "state") {
-			update(data);
 			try {
 				update(data);
 			} catch (err) {
@@ -21,8 +23,8 @@ function initiateTrainLink(ipAddress) {
 }
 
 function setSpeed(address, speed, direction=-1) { 
-	/*	Address: the loco address
-		Speed: New speed for loco
+	/*	address: the cab address
+		speed: New speed for cab
 		direction: set direction
 	*/
 
@@ -51,17 +53,29 @@ function setSpeed(address, speed, direction=-1) {
 }
 
 function stopCab(address) {
+	/*	adress: the address of the cab to stop */
+
+	/* Sends stop packet to the API server */
 	websocket.send(JSON.stringify({class: "cabControl", action: "stop", cabAddress: address}));
 }
 
 function estopCab(address) {
+	/*	adress: the address of the cab to stop */
+
+	/* Sends emergency stop packet to the API server */
 	websocket.send(JSON.stringify({class: "cabControl", action: "estop", cabAddress: address}));
 }
 
 function sendCommand(command) {
+	/*	command: the command to send to the base station */
+
+	/* Sends direct command packet to the API server */
 	websocket.send(JSON.stringify({class: "directCommand", command: command}));
 }
 
 function setPower(state) {
+	/* state: the state to set the track power to (0 - off, 1 - on) */
+
+	/* Sends track power packet to the API server */
 	websocket.send(JSON.stringify({class: "power", state: state}));
 }

@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<!-- links backend -->
-		<script src="trainlink.js"></script>
+		<script src="../API Libraries/TrainLink for Websites/trainlink.js"></script>
 		
 		<!--Main content -->
 		<h1>Trainlink API Demo</h1>
@@ -34,11 +34,14 @@
 		
 		<br>
 
+		<!-- Where the cab buttons will be located -->
 		<div id="cabList"></div>
 
 		<script>
+			/* Creates the web socket */
 			initiateTrainLink("ws://127.0.0.1:6789");
 			
+			/* Sets up required variables */
 			var slider = document.getElementById("speedControl"),
 				title = document.getElementById("trainName"),
 				speedValue = document.getElementById("speedValue")
@@ -47,45 +50,70 @@
 				activeCab = "",
 				cabList = document.getElementById("cabList");
 			
+			/* Stops slider being used when no cab selected */
 			slider.disabled = true;
 			
+			/* deals with the slider changing */
 			slider.oninput = function (event) {
 				setSpeed(activeCab,slider.value);
 			}
 
+			/* 	The config function
+				This is called when the websocket is created and the first packet is recived
+			*/
 			function config(data) {
+				/* The packet recived from the server is passed in as the data variable (this can be called anything)*/
+				
+				/* Stores the cabs list from the server */
 				cabs = data.cabs
+				/*	cabKeys stores the cab names, cabValues the address 
+					corresponding names and addresses have the same index number in both arrays */
 				cabKeys = Object.keys(cabs);
 				cabValues = Object.values(cabs);
+				/* Stores the buttons to switch cabs */
 				cabButtons = [];
+				/* Goes through each cab and gives it a button as well as an entry in cabSpeeds*/
 				for (cabNum = 0; cabNum < cabKeys.length; cabNum++) {
+					/* creates entry in cabSpeeds (speed is set to 0) */
 					cabSpeeds[cabKeys[cabNum]] = "0"
+					/* creates a button*/
 					cabButtons.push(document.createElement("BUTTON"));
 					cabButtons[cabNum].innerHTML = cabKeys[cabNum];
+					/* adds the onclick */
 					cabButtons[cabNum].setAttribute("onclick", "changeCab(\""+cabKeys[cabNum]+"\")");
 					cabList.appendChild(cabButtons[cabNum]);
 					cabList.appendChild(document.createTextNode("\t"));
 				}
-				//console.log(cabSpeeds)
 			}
 
+			/* 	The update function
+				This is called when the websocket recives a packet from the server with a state update
+			*/
 			function update(data) {
+				/* The packet recived from the server is passed in as the data variable (this can be called anything)*/
+
+				/* Finds the array address of the cab that the data packet is for */
 				cabID  = cabValues.findIndex(searchArray, data.cab);
+				/* Sets the cab's direction and speed */
 				cabDirections[cabKeys[cabID]] = data.direction;
 				cabSpeeds[cabKeys[cabID]] = data.speed;
+				/* If the cab is reversing, adds a minus in front of the displayed speed */
 				if (!(cabDirections[cabKeys[cabID]]) && cabSpeeds[cabKeys[cabID]] != 0){
 					cabSpeeds[cabKeys[cabID]] = "-" + String(cabSpeeds[cabKeys[cabID]]);
 				}
+				/* Updates the slider and value on the website if the speed isnt 'undefined' */
 				if (cabSpeeds[activeCab] != undefined) {
 					speedValue.innerHTML = cabSpeeds[activeCab];
 					slider.value = cabSpeeds[activeCab];
 				}
 			}
 			
+			/* Used in the update function to find the id of the cab */
 			function searchArray(current) {
 				return current == this;
 			}
 
+			/* Used to change the active cab and updates all values accordingly */
 			function changeCab(cabName) {
 				slider.disabled = false;
 				title.innerHTML = cabName;
