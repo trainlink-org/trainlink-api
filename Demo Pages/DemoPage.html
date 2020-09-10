@@ -28,7 +28,7 @@
 		
 		<!-- Break buttons -->
 		<div class="breakContainer">
-			<button onclick="stopCab(activeCab)">Stop</button>
+			<button onclick="trainlink.stopCab(activeCab)">Stop</button>
 			<button onclick="estopCab(activeCab)">Emergency Stop</button>
 		</div>
 		
@@ -38,8 +38,9 @@
 		<div id="cabList"></div>
 
 		<script>
+			trainlink()
 			/* Creates the web socket */
-			initiateTrainLink("ws://127.0.0.1:6789");
+			trainlink.initiateTrainLink("ws://127.0.0.1:6789");
 			
 			/* Sets up required variables */
 			var slider = document.getElementById("speedControl"),
@@ -55,7 +56,7 @@
 			
 			/* deals with the slider changing */
 			slider.oninput = function (event) {
-				setSpeed(activeCab,slider.value);
+				trainlink.setSpeed(activeCab,slider.value);
 			}
 
 			/* 	The config function
