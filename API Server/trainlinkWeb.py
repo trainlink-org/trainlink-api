@@ -80,4 +80,3 @@ class web:
         elif data["action"] == "estop":
             address = utils.obtainAddress(data["cabAddress"], self.cabID)
             self.cabSpeeds[address] = "-1"
-    
