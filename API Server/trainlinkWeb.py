@@ -8,6 +8,9 @@ import websockets, asyncio, json
 class web:
     """ Serves websocket users """
 
+    # The trainlinkSerial instance
+    serialUtils = None
+
     # The variables needed for configuration
     address = ""
     port = ""
@@ -20,7 +23,8 @@ class web:
     
     
     # Assigns config variables from arguments
-    def __init__ (self, address, port, cabIDxml):
+    def __init__ (self, address, port, cabIDxml, serialUtils):
+        self.serialUtils = serialUtils
         self.address = address
         self.port = port
         self.cabID = cabIDxml
@@ -52,9 +56,9 @@ class web:
                     await self.notifyState(websocket)
                 elif data["class"] == "directCommand":
                     #print(data)
-                    pass
+                    await self.directCommand(data["command"])
                 elif data["class"] == "power":
-                    pass
+                    await self.setPower(data["state"])
         finally:
             await self.unregister(websocket)
 
@@ -80,3 +84,9 @@ class web:
         elif data["action"] == "estop":
             address = utils.obtainAddress(data["cabAddress"], self.cabID)
             self.cabSpeeds[address] = "-1"
+
+    async def directCommand(self, packet):
+        await self.serialUtils.directCommand(packet)
+    
+    async def setPower(self, powerState):
+        await self.serialUtils.setPower(powerState)

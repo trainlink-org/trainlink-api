@@ -51,7 +51,6 @@ function trainlink() {
 		
 		/* Sends the packet to the API server */
 		websocket.send(JSON.stringify({class: "cabControl", action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: direction}));
-		console.log(JSON.stringify({class: "cabControl", action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: direction}))
 	}
 
 	function stopCab(address) {
@@ -73,7 +72,6 @@ function trainlink() {
 
 		/* Sends direct command packet to the API server */
 		websocket.send(JSON.stringify({class: "directCommand", command: command}));
-		console.log(JSON.stringify({class: "directCommand", command: command}))
 	}
 
 	function setPower(state) {

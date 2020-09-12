@@ -17,6 +17,8 @@
 		<!-- Shows active train -->
 		<h2 id="trainName">Select a Train</h2>
 		<br>
+
+		
 		
 		<!-- Speed control slider -->
 		<div class="slideContainer">
@@ -37,10 +39,16 @@
 		<!-- Where the cab buttons will be located -->
 		<div id="cabList"></div>
 
+		<br>
+		<label class="switch">
+			<input id="powerSwitch" type="checkbox" onclick="setPower()">
+			<span class="switcher round"></span>
+		</label>
+
 		<script>
 			trainlink()
 			/* Creates the web socket */
-			trainlink.initiateTrainLink("ws://127.0.0.1:6789");
+			trainlink.initiateTrainLink("ws://192.168.1.158:6789");
 			
 			/* Sets up required variables */
 			var slider = document.getElementById("speedControl"),
@@ -49,7 +57,8 @@
 				cabSpeeds = [],
 				cabDirections = [],
 				activeCab = "",
-				cabList = document.getElementById("cabList");
+				cabList = document.getElementById("cabList")
+				powerToggle = document.getElementById("powerSwitch");
 			
 			/* Stops slider being used when no cab selected */
 			slider.disabled = true;
@@ -121,6 +130,14 @@
 				activeCab = cabName;
 				slider.value = cabSpeeds[activeCab];
 				speedValue.innerHTML = cabSpeeds[activeCab];
+			}
+
+			function setPower() {
+				if (powerToggle.checked == true) {
+					trainlink.setPower(1)
+				} else {
+					trainlink.setPower(0)
+				}
 			}
 		</script>
 	</body>

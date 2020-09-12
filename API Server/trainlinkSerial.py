@@ -1,4 +1,4 @@
-import serial
+import serial, asyncio
 
 class comms:
     '''Manages the serial communications of trainlink'''
@@ -22,8 +22,16 @@ class comms:
                 if packet != self.prevPacket[address]:
                     self.ser.write(packet)
                     self.prevPacket[address] = packet
-                    print(packet)
             except KeyError:
                 self.ser.write(packet)
                 self.prevPacket[address] = packet
-                print(packet)
+
+    async def directCommand(self, packet):
+        packet = packet.encode('utf-8')
+        self.ser.write(packet)
+        
+    async def setPower(self, powerState):
+        if int(powerState):
+            self.ser.write(b'<1>')
+        else:
+            self.ser.write(b'<0>')
