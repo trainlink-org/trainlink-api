@@ -16,6 +16,7 @@ class web:
     port = ""
 
     # Arrays used for storing runtime data
+    power = 0
     users = set()
     cabID = {}
     cabSpeeds = {}
@@ -59,6 +60,7 @@ class web:
                     await self.directCommand(data["command"])
                 elif data["class"] == "power":
                     await self.setPower(data["state"])
+                    await self.notifyState(websocket)
         finally:
             await self.unregister(websocket)
 
@@ -71,7 +73,8 @@ class web:
 
     async def stateEvent(self, websocket):
         for cab in self.cabSpeeds:
-            await websocket.send(json.dumps({"type": "state", "cab": cab, "speed": self.cabSpeeds[cab], "direction": self.cabDirections[cab]}))
+            await websocket.send(json.dumps({"type": "state", "updateType": "cab", "cab": cab, "speed": self.cabSpeeds[cab], "direction": self.cabDirections[cab]}))
+        await websocket.send(json.dumps({"type": "state", "updateType": "power", "state": self.power}))
     
     def cabControl(self, data):
         if data["action"] == "setSpeed":
@@ -90,3 +93,4 @@ class web:
     
     async def setPower(self, powerState):
         await self.serialUtils.setPower(powerState)
+        self.power = powerState

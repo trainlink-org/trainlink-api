@@ -102,19 +102,27 @@
 			function update(data) {
 				/* The packet recived from the server is passed in as the data variable (this can be called anything)*/
 
-				/* Finds the array address of the cab that the data packet is for */
-				cabID  = cabValues.findIndex(searchArray, data.cab);
-				/* Sets the cab's direction and speed */
-				cabDirections[cabKeys[cabID]] = data.direction;
-				cabSpeeds[cabKeys[cabID]] = data.speed;
-				/* If the cab is reversing, adds a minus in front of the displayed speed */
-				if (!(cabDirections[cabKeys[cabID]]) && cabSpeeds[cabKeys[cabID]] != 0){
-					cabSpeeds[cabKeys[cabID]] = "-" + String(cabSpeeds[cabKeys[cabID]]);
-				}
-				/* Updates the slider and value on the website if the speed isnt 'undefined' */
-				if (cabSpeeds[activeCab] != undefined) {
-					speedValue.innerHTML = cabSpeeds[activeCab];
-					slider.value = cabSpeeds[activeCab];
+				if (data.updateType == "cab"){
+					/* Finds the array address of the cab that the data packet is for */
+					cabID  = cabValues.findIndex(searchArray, data.cab);
+					/* Sets the cab's direction and speed */
+					cabDirections[cabKeys[cabID]] = data.direction;
+					cabSpeeds[cabKeys[cabID]] = data.speed;
+					/* If the cab is reversing, adds a minus in front of the displayed speed */
+					if (!(cabDirections[cabKeys[cabID]]) && cabSpeeds[cabKeys[cabID]] != 0){
+						cabSpeeds[cabKeys[cabID]] = "-" + String(cabSpeeds[cabKeys[cabID]]);
+					}
+					/* Updates the slider and value on the website if the speed isnt 'undefined' */
+					if (cabSpeeds[activeCab] != undefined) {
+						speedValue.innerHTML = cabSpeeds[activeCab];
+						slider.value = cabSpeeds[activeCab];
+					}
+				}else if (data.updateType == "power") {
+					if (data.state == "1") {
+						powerToggle.checked = true;
+					} else {
+						powerToggle.checked = false;
+					}
 				}
 			}
 			
