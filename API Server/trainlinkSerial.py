@@ -7,10 +7,15 @@ class comms:
     prevPacket = {}
 
     def __init__(self, port):
-
-        self.ser = serial.Serial(baudrate=115200, port=port)
-        self.ser.close()
-        self.ser.open()
+        global emulator
+        try:
+            self.ser = serial.Serial(baudrate=115200, port=port)
+            self.ser.close()
+            self.ser.open()
+            emulator = False
+        except:
+            print("Using Emulator")
+            emulator = True
 
     def updateCabs(self, cabSpeeds, cabDirections):
         for cab in cabSpeeds:
@@ -23,15 +28,22 @@ class comms:
                     self.ser.write(packet)
                     self.prevPacket[address] = packet
             except KeyError:
-                self.ser.write(packet)
+                self.write(packet)
                 self.prevPacket[address] = packet
 
     async def directCommand(self, packet):
         packet = packet.encode('utf-8')
-        self.ser.write(packet)
+        self.write(packet)
         
     async def setPower(self, powerState):
         if int(powerState):
-            self.ser.write(b'<1>')
+            self.write(b'<1>')
         else:
-            self.ser.write(b'<0>')
+            self.write(b'<0>')
+    
+    def write(self, packet):
+        global emulator
+        if emulator:
+            pass
+        else:
+            self.ser.write(packet)
