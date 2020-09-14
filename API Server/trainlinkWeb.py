@@ -81,16 +81,22 @@ class web:
         await websocket.send(json.dumps({"type": "state", "updateType": "power", "state": self.power}))
     
     def cabControl(self, data):
-        if data["action"] == "setSpeed":
-            address = utils.obtainAddress(data["cabAddress"], self.cabID)
-            self.cabSpeeds[address] = data["cabSpeed"]
-            self.cabDirections[address] = data["cabDirection"]
-        elif data["action"] == "stop":
-            address = utils.obtainAddress(data["cabAddress"], self.cabID)
-            self.cabSpeeds[address] = "0"
-        elif data["action"] == "estop":
-            address = utils.obtainAddress(data["cabAddress"], self.cabID)
-            self.cabSpeeds[address] = "-1"
+        try:
+            if data["action"] == "setSpeed":
+                address = utils.obtainAddress(data["cabAddress"], self.cabID)
+                self.cabSpeeds[address] = data["cabSpeed"]
+                self.cabDirections[address] = data["cabDirection"]
+            elif data["action"] == "stop":
+                address = utils.obtainAddress(data["cabAddress"], self.cabID)
+                self.cabSpeeds[address] = "0"
+                self.cabDirections[address] = "0"
+            elif data["action"] == "estop":
+                address = utils.obtainAddress(data["cabAddress"], self.cabID)
+                self.cabSpeeds[address] = "-1"
+                self.cabDirections[address] = "0"
+        except UnboundLocalError:
+            if self.debug:
+                print("Unknowen Address!")
 
     async def directCommand(self, packet):
         await self.serialUtils.directCommand(packet)

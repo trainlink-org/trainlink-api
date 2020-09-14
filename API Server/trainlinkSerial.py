@@ -36,10 +36,17 @@ class comms:
         self.write(packet)
         
     async def setPower(self, powerState):
-        if int(powerState):
-            self.write(b'<1>')
-        else:
-            self.write(b'<0>')
+        try:
+            powerstate = int(powerState)
+            if powerState == 1:
+                self.write(b'<1>')
+            elif powerState == 0:
+                self.write(b'<0>')
+            else:
+                print("Invalid power state")
+        except ValueError:
+            print("Invalid power state")
+        
     
     def write(self, packet):
         global emulator

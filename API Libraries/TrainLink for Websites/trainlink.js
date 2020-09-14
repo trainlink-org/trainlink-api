@@ -10,6 +10,10 @@ function trainlink() {
 			if (data.type == "config") {
 				try{
 					config(data);
+					debug = data.debug.toLowerCase();
+					if (debug == "true") {
+						console.log("Debug enabled")
+					}
 				} catch (err) {
 					throw("Error - Config function missing!")
 				}
@@ -48,9 +52,27 @@ function trainlink() {
 			}
 			
 		}
+
+		outputDirection = parseInt(direction, 10)
+		outputSpeed = parseInt(direction, 10)
+
+		if (direction < -1 || direction > 1 || Number.isNaN(outputDirection)) {
+			if (debug) {
+				console.warn("Unallowed direction!")
+			}
+		} else if (speed > 126 || speed < -1 || Number.isNaN(outputSpeed)){
+			if (debug) {
+				console.warn("Unallowed speed!")
+			}	
+		}else if (address < 0) {
+			if (debug) {
+				console.warn("Unallowed address!")	
+			}
+		} else {
 		
-		/* Sends the packet to the API server */
-		websocket.send(JSON.stringify({class: "cabControl", action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: direction}));
+			/* Sends the packet to the API server */
+			websocket.send(JSON.stringify({class: "cabControl", action: "setSpeed", cabAddress: address, cabSpeed: speed, cabDirection: direction}));
+		}
 	}
 
 	function stopCab(address) {

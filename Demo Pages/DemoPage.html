@@ -30,8 +30,8 @@
 		
 		<!-- Break buttons -->
 		<div class="breakContainer">
-			<button onclick="trainlink.stopCab(activeCab)">Stop</button>
-			<button onclick="trainlink.estopCab(activeCab)">Emergency Stop</button>
+			<button id="stopButton" onclick="trainlink.stopCab(activeCab)">Stop</button>
+			<button id="estopButton" onclick="trainlink.estopCab(activeCab)">Emergency Stop</button>
 		</div>
 		
 		<br>
@@ -54,15 +54,19 @@
 			var slider = document.getElementById("speedControl"),
 				title = document.getElementById("trainName"),
 				speedValue = document.getElementById("speedValue")
+				stopButton = document.getElementById("stopButton")
+				estopButton = document.getElementById("estopButton")
 				cabSpeeds = [],
 				cabDirections = [],
 				activeCab = "",
 				cabList = document.getElementById("cabList")
 				powerToggle = document.getElementById("powerSwitch");
 			
-			/* Stops slider being used when no cab selected */
+			/* Stops cab controls being used when no cab selected */
 			slider.disabled = true;
-			
+			stopButton.disabled = true;
+			estopButton.disabled = true;
+
 			/* deals with the slider changing */
 			slider.oninput = function (event) {
 				trainlink.setSpeed(activeCab,slider.value);
@@ -80,10 +84,6 @@
 					corresponding names and addresses have the same index number in both arrays */
 				cabKeys = Object.keys(cabs);
 				cabValues = Object.values(cabs);
-				debug = data.debug.toLowerCase();
-				if (debug == "true") {
-					console.log("Debug enabled")
-				}
 				/* Stores the buttons to switch cabs */
 				cabButtons = [];
 				/* Goes through each cab and gives it a button as well as an entry in cabSpeeds*/
@@ -137,7 +137,15 @@
 
 			/* Used to change the active cab and updates all values accordingly */
 			function changeCab(cabName) {
-				slider.disabled = false;
+				if (slider.disabled == true) {
+					slider.disabled = false;
+					stopButton.disabled = false;
+					estopButton.disabled = false;
+					if (debug) {
+						console.log("Cab controls enabled")
+					}
+				}
+
 				title.innerHTML = cabName;
 				activeCab = cabName;
 				slider.value = cabSpeeds[activeCab];

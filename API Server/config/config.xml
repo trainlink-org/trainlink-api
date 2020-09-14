@@ -3,11 +3,11 @@
     <cabs>
         <cab>
             <name>Train1</name>
-            <address>001</address>
+            <address>1</address>
         </cab>
         <cab>
             <name>Train2</name>
-            <address>002</address>
+            <address>2</address>
         </cab>
     </cabs>
     <server>
