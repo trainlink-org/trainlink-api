@@ -41,6 +41,28 @@ Feature | Version
 Cab control | 0.1
 Track power control | 0.1
 Direct command | 0.1
-_Cab functions_ | _0.2_
 
 The reason I say fully supported is because the API has the direct command function. This allows DCC++ comands (such as `<t 1 3 126 1>`) to be sent directly to the base s tation, so all DCC++ commands are supported to some degree. Full support means they are handled by the server and are synced between instances.
+
+To find out what is next for TrainLink, check out the [Development Tasks](https://github.com/matt-hu/trainlink-api/projects/1) project!
+
+## Branches and releases
+Releases are numbered according to the [Semantic Numbering](https://semver.org/) scheme. Therefore, releases will be numbered as following:
+
+>Given a version number MAJOR.MINOR.PATCH, increment the:
+>
+>MAJOR version when you make incompatible API changes,  
+MINOR version when you add functionality in a backwards compatible manner, and  
+PATCH version when you make backwards compatible bug fixes."
+
+### Branches
+Master branch - Where code for the next release accumulates  
+Preview branch - Code that is finished, but not fully tested yet  
+Development-x.x branch - Where I write my code, almost guaranteed to be unstable!
+
+## Contributing
+Want to suggest a feature, found a bug, or even better, fixed a bug? Please, go ahead and submit a pull request or issue! Every little helps, and even the smallest contribution will go a long way to help me with this project. You don't need to know how to code, as correcting typos or updating the documentation would help a lot!
+
+Many thanks,  
+Matt-hu  
+\- September 2020
