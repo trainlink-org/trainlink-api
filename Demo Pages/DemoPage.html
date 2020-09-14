@@ -80,6 +80,10 @@
 					corresponding names and addresses have the same index number in both arrays */
 				cabKeys = Object.keys(cabs);
 				cabValues = Object.values(cabs);
+				debug = data.debug.toLowerCase();
+				if (debug == "true") {
+					console.log("Debug enabled")
+				}
 				/* Stores the buttons to switch cabs */
 				cabButtons = [];
 				/* Goes through each cab and gives it a button as well as an entry in cabSpeeds*/

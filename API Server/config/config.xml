@@ -10,4 +10,12 @@
             <address>002</address>
         </cab>
     </cabs>
+    <server>
+        <ip>auto</ip>
+        <port>auto</port>
+        <serialPort>COM8</serialPort>
+    </server>
+    <debug>
+        <enableDebug>True</enableDebug>
+    </debug>
 </config>

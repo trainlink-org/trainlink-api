@@ -14,6 +14,7 @@ class web:
     # The variables needed for configuration
     address = ""
     port = ""
+    debug = False
 
     # Arrays used for storing runtime data
     power = 0
@@ -24,17 +25,20 @@ class web:
     
     
     # Assigns config variables from arguments
-    def __init__ (self, address, port, cabIDxml, serialUtils):
+    def __init__ (self, address, port, debug, cabIDxml, serialUtils):
         self.serialUtils = serialUtils
         self.address = address
         self.port = port
         self.cabID = cabIDxml
+        self.debug = debug.capitalize()
         for cab in cabIDxml:
             self.cabSpeeds[cabIDxml[cab]] = 0
             self.cabDirections[cabIDxml[cab]] = 0
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
+        if self.debug == "True":
+            print("Debug enabled")
         start_server = websockets.serve(self.main, self.address, self.port)
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
@@ -66,7 +70,7 @@ class web:
 
     async def register(self, websocket):
         self.users.add(websocket)
-        await websocket.send(json.dumps({"type": "config", "cabs": self.cabID}))
+        await websocket.send(json.dumps({"type": "config", "cabs": self.cabID,"debug": self.debug}))
 
     async def unregister(self, websocket):
         web.users.remove(websocket)

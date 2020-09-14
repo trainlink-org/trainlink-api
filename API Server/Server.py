@@ -4,16 +4,11 @@ try:
     # Imports required external modules
     import threading, time
 
-    # ----- Need to move to xml -----
-    socketAddress = "0.0.0.0"
-    socketPort = "6789"
     # Sets the location of the config file
     configFile = 'config/config.xml'
 
     # Continues the main logic after the server starts
     def main():
-        
-        print("main")
         while True:
             if killThread:
                 break
@@ -29,10 +24,12 @@ try:
 
     # Gets the cabs list from the xml
     cabs = xmlUtils.listCabs()
+    # Gets the server config from the xml
+    config = xmlUtils.loadConfig()
 
-    serialUtils = trainlinkSerial.comms("COM8")
+    serialUtils = trainlinkSerial.comms(config["serialPort"])
     # Creates an instance of the trainlinkWeb library
-    server = trainlinkWeb.web(socketAddress, socketPort, cabs, serialUtils)
+    server = trainlinkWeb.web(config['ipAddress'], config["port"], config["debug"], cabs, serialUtils)
 
     # Creates a main thread - the server can't run in a second thread, so the main logic has to
     killThread = False
