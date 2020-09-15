@@ -1,4 +1,4 @@
-# TrainLink API 0.1.0
+# TrainLink API
  This is an API to intergrate with a DCC++ (or DCC++ EX) BaseStation. It provides a simple way to control it over your local network, with multiple instances supported. This means if you open a website using TrainLink on two devices connected to the same server, they will be kept in sync!
 
  ## What is in this Repository?
@@ -25,8 +25,9 @@ __Note:__ When installing Python, make sure to check 'Add Python to Path'
 ![How to enable add python to path](/documentation/images/install-python-path.jpg)
 
 1. Next, you need to install the required packages that the server needs. These are:
-    * [Websockets](https://websockets.readthedocs.io/en/stable/index.html)
-    * [Serial](https://pyserial.readthedocs.io/en/latest/index.html)  
+    * [Websockets](https://pypi.org/project/websockets/)
+    * [Serial](https://pypi.org/project/pyserial/) 
+    * [XMLtoDict](https://pypi.org/project/xmltodict/) 
 
     These can be installed via _reqirements.txt_, or alternativly via pip individually. To use _requirements.txt_, change into the directory where you downloaded the release then run:
     ```console
@@ -34,8 +35,17 @@ __Note:__ When installing Python, make sure to check 'Add Python to Path'
     ```
 1. Your TrainLink installation is done! If you want to try out the demo page, start by running the server, then go into the Demo Pages folder
 
+## Compatible front ends
+Here is a list of compatable front ends that work with TrainLink:
+Name | Location | Maintainer
+-----|----------|-----------
+Demo page | This repository | [Matt-hu](https://github.com/matt-hu)
+Its looking a little bare at the moment! If you know of or maintain a compatible front end, please let me know and I wil add it here.  
+You can identify compatible front ends from this logo:  
+[![Trainlink compatible icon](/Documentation/images/compatible-icon-small.png)](https://matt-hu.github.io/trainlink-api)
+
 ## What features are supported?
-For the full list of supported features and commands, please see the wiki and full documentation. Here is a brief list of what is currently __fully__ supported or planned:
+For the full list of supported features and commands, please see the wiki and full documentation. Here is a brief list of what is currently __fully__ supported:
 Feature | Version
 --------|--------
 Cab control | 0.1
@@ -61,7 +71,12 @@ Preview branch - Code that is finished, but not fully tested yet
 Development-x.x branch - Where I write my code, almost guaranteed to be unstable!
 
 ## Contributing
-Want to suggest a feature, found a bug, or even better, fixed a bug? Please, go ahead and submit a pull request or issue! Every little helps, and even the smallest contribution will go a long way to help me with this project. You don't need to know how to code, as correcting typos or updating the documentation would help a lot!
+Want to suggest a feature, found a bug, or even better, fixed a bug? Please, go ahead and submit a pull request or issue! Every little helps, and even the smallest contribution will go a long way to help me with this project. You don't need to know how to code, as correcting typos or updating the documentation would help a lot! For more information on contributing, please see the wiki.
+
+## More Information
+For more information please see the following:
+* [The wiki](https://matt-hu.github.io/trainlink-api) - FAQ and other repository maintainance help
+* [Readthedocs](https://matt-hu.github.io/trainlink-api) - information on the API itself and the function calls
 
 Many thanks,  
 Matt-hu  
