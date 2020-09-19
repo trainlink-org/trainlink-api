@@ -77,9 +77,9 @@ Want to suggest a feature, found a bug, or even better, fixed a bug? Please, go 
 
 ## More Information
 For more information please see the following:
-* [The wiki](https://matt-hu.github.io/trainlink-api) - FAQ and other repository maintainance help
-* [Readthedocs](https://matt-hu.github.io/trainlink-api) - information on the API itself and the function calls
+* [The wiki](https://github.com/matt-hu/trainlink-api/wiki) - FAQ and other repository maintainance help
+* [Readthedocs](trainlink-api.readthedocs.io) - information on the API itself and the function calls
 
 Many thanks,  
-Matt-hu  
+Matt  
 \- September 2020
