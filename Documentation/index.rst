@@ -11,11 +11,7 @@ In this documentation you will find the getting started guide along with referen
 
 
 
-.. Indices and tables
-   ==================
-   * :ref:`genindex`
-   * :ref:`modindex`
-   * :ref:`search`
+
 
 Contents:
 
@@ -26,6 +22,8 @@ Contents:
    /api-usage
    /api-calls
    /internal-workings
+   /indices-tables
+
 
 **Coming Soon!**
 ----------------
