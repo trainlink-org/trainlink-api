@@ -1,9 +1,9 @@
 function trainlink() {
-	function initiateTrainLink(ipAddress) {
+	function initiateTrainLink(ipAddress='192.168.1.158', port='6789') {
 		/*	ipAddress: the ip address of the server */
 
 		/* Creates a websocket connected to the server */
-		websocket = new WebSocket(ipAddress);
+		websocket = new WebSocket("ws://"+ipAddress+":"+port);
 		/* what to do when a new message is recived */
 		websocket.onmessage = function (event) {
 			data = JSON.parse(event.data);
