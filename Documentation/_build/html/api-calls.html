@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-usage.html">Using the API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Calls</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-trainlink">Javascript Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#javascript-client">Javascript Client</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="internal-workings.html">Internal workings of the API</a></li>
@@ -162,19 +162,24 @@
   <div class="section" id="api-calls">
 <h1>API Calls<a class="headerlink" href="#api-calls" title="Permalink to this headline">¶</a></h1>
 <p>This page details the calls available to programmers using the API on each platform.</p>
-<div class="section" id="module-trainlink">
-<span id="javascript-client"></span><h2>Javascript Client<a class="headerlink" href="#module-trainlink" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
+<div class="section" id="javascript-client">
+<h2>Javascript Client<a class="headerlink" href="#javascript-client" title="Permalink to this headline">¶</a></h2>
+<p>This is the library used for developing web applications.
+Due to the use of Javascript, pages written using this method can be run as files, rather than in a server.</p>
+<span class="target" id="module-trainlink"></span><dl class="py method">
 <dt id="trainlink.initateTrainLink">
 <code class="sig-prename descclassname">trainlink.</code><code class="sig-name descname">initateTrainLink</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ipAddress</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">'6789'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trainlink.initateTrainLink" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ipAddress</strong> – The local ip address of the server (127.0.0.1 restricts access to local machine only).</p></li>
+<li><p><strong>ipAddress</strong> – The local IP address of the server (127.0.0.1 restricts access to local machine only).</p></li>
 <li><p><strong>port</strong> – The port of the server (6789 is the default).</p></li>
 </ul>
 </dd>
 </dl>
+<p>Creates a link with a DCC++ BaseStation. If the server is running on your local machine, you can use <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>.
+Otherwise, use the IP address or hostname of the server. I recommend setting up a static IP for this machine or using
+it’s hostname.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -190,6 +195,55 @@ If the value of speed is negative, the cab will reverse. Likewise, if the speed 
 </ul>
 </dd>
 </dl>
+<p>Sets the speed of the given cab. This function is very flexible as you can use either the direction argument or the
+polarity of the speed to change the direction. Also, for address, either the numerical decoder-set address can be used, or alternativly,
+the phonetic name set in the server’s <code class="docutils literal notranslate"><span class="pre">config.xml</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="trainlink.stopCab">
+<code class="sig-prename descclassname">trainlink.</code><code class="sig-name descname">stopCab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trainlink.stopCab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> – The address of the cab that you want to stop</p>
+</dd>
+</dl>
+<p>Stops the cab using the deceleration value set in the decoder. Like <em>setSpeed</em>, there are two ways of choosing the address. Refer to
+the setSpeed description for more details.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="trainlink.eStopCab">
+<code class="sig-prename descclassname">trainlink.</code><code class="sig-name descname">eStopCab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trainlink.eStopCab" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> – The address of the cab that you want to stop</p>
+</dd>
+</dl>
+<p>Stops the cab <strong>instantly</strong>, ignoring the deceleration value set in the decoder. Like <em>setSpeed</em>, there are two ways of choosing the address. Refer to
+the setSpeed description for more details.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="trainlink.sendCommand">
+<code class="sig-prename descclassname">trainlink.</code><code class="sig-name descname">sendCommand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trainlink.sendCommand" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> – The command that will be sent to the BaseStation</p>
+</dd>
+</dl>
+<p>Sends a command directly to the BaseStation. An example command would be <code class="docutils literal notranslate"><span class="pre">&lt;t</span> <span class="pre">1</span> <span class="pre">3</span> <span class="pre">126</span> <span class="pre">1&gt;</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="trainlink.setPower">
+<code class="sig-prename descclassname">trainlink.</code><code class="sig-name descname">setPower</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trainlink.setPower" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> – The power state the track will be set to (0 - off, 1 - on)</p>
+</dd>
+</dl>
+<p>Changes whether power is applied to both the programming and main tracks. No power = no movement!</p>
 </dd></dl>
 
 </div>

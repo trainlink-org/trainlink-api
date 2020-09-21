@@ -3,8 +3,9 @@ Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
+   /index
    /getting-started
    /api-usage
    /api-calls
