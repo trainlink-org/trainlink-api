@@ -36,7 +36,9 @@ __Note:__ When installing Python, make sure to check 'Add Python to Path'
     ```console
     $ pip install -r requirements.txt
     ```
-1. Your TrainLink installation is done! If you want to try out the demo page, start by running the server, then go into the Demo Pages folder
+1. Your TrainLink installation is done! If you want to try out the demo page, start by running the server, then go into the Demo Pages folder and open `DemoPage.html`.
+
+For more information on configuring the server, head to the [readthedocs page](https://trainlink-api.readthedocs.io/en/latest/api-usage.html)
 
 ## Compatible front ends
 Here is a list of compatable front ends that work with TrainLink:
