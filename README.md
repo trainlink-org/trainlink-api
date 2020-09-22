@@ -16,7 +16,7 @@ __Please note: This is still undergoing intial development and not all links etc
 * A Demo page
 
 ## Why should I use TrainLink?
-One of the major features of trainlink is the cross-platform nature of the API. The server runs on Python, meaning it can be run on most platforms. Also, the API library is written in Javascript, so again, it can be run on most platforms.
+One of the major features of TrainLink is the cross-platform nature of the API. The server runs on Python, meaning it can be run on most platforms. Also, the API library is written in Javascript, so again, it can be run on most platforms.
 
 Also, TrainLink is very flexible to different development styles. For example, if you don't need the sync feature, you can just send direct commands.
 
