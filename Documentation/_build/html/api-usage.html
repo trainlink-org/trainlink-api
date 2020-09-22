@@ -97,6 +97,14 @@
 <li><a class="reference internal" href="#debug">Debug</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#using-trainlink-for-websites">Using TrainLink for Websites</a><ul>
+<li><a class="reference internal" href="#adding-the-js-to-your-code">Adding the .js to your code</a></li>
+<li><a class="reference internal" href="#setting-up-your-code-for-trainlink">Setting up your code for TrainLink</a><ul>
+<li><a class="reference internal" href="#contents-of-the-data-variable">Contents of the data variable</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -221,6 +229,60 @@ Cabs are defined in the format:</p>
 <p>This controls whether the debug statements are enabled or not.
 If <code class="docutils literal notranslate"><span class="pre">enableDebug</span></code> is set to <em>True</em>, then debug statements will be showen in both the server output
 and also the console in the browser (accesible via F12 on most browsers, otherwise look for <em>developer tools</em>).</p>
+</div>
+</div>
+<div class="section" id="using-trainlink-for-websites">
+<h2>Using TrainLink for Websites<a class="headerlink" href="#using-trainlink-for-websites" title="Permalink to this headline">¶</a></h2>
+<p>TrainLink for Websites uses javascript to communicate with the webserver. This gives the benefit of the
+page being able to constantly update, even after the webpage has loaded.</p>
+<div class="section" id="adding-the-js-to-your-code">
+<h3>Adding the .js to your code<a class="headerlink" href="#adding-the-js-to-your-code" title="Permalink to this headline">¶</a></h3>
+<p>To enable access to all the TrainLink functions, you need to add one line of code to the top of your body in
+each HTML file where the functions are needed. The line of code is this:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;path/to/trainlink.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>I recommend putting the <code class="docutils literal notranslate"><span class="pre">trainlink.js</span></code> file in a folder named something like <em>js</em>.
+In which case, your path to the .js would be <code class="docutils literal notranslate"><span class="pre">js/trainlink.js</span></code>. <code class="docutils literal notranslate"><span class="pre">trainlink.js</span></code> can be found in <em>API Libraries/TrainLink for Websites</em> in the file structure you downloaded from
+the TrainLink API GitHub page. If you haven’t done this yet head to <a class="reference internal" href="getting-started.html"><span class="doc">Getting Started</span></a>.</p>
+</div>
+<div class="section" id="setting-up-your-code-for-trainlink">
+<h3>Setting up your code for TrainLink<a class="headerlink" href="#setting-up-your-code-for-trainlink" title="Permalink to this headline">¶</a></h3>
+<p>Now you have added the <code class="docutils literal notranslate"><span class="pre">trainlink.js</span></code> to your page, you can access all the API functions as long as you call <code class="docutils literal notranslate"><span class="pre">trainlink()</span></code>.
+If you want more information on how to do this, have a look at <a class="reference internal" href="api-calls.html"><span class="doc">API Calls</span></a>.
+There are a couple of compulsory functions that you need in your code at some point and these are <code class="docutils literal notranslate"><span class="pre">update()</span></code> and <code class="docutils literal notranslate"><span class="pre">config()</span></code>.
+They should be structured like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">config</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Code to be run when a connection is establised to the server */</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Code to be run when the server sends an update packet */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="contents-of-the-data-variable">
+<h4>Contents of the data variable<a class="headerlink" href="#contents-of-the-data-variable" title="Permalink to this headline">¶</a></h4>
+<p>data.updateType will store the type of update that the packet is.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Update type</p></th>
+<th class="head"><p>Data values available</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“cab”</p></td>
+<td><p>data.cab
+data.speed
+data.direction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>

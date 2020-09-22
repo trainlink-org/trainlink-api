@@ -64,3 +64,50 @@ This controls whether the debug statements are enabled or not.
 If ``enableDebug`` is set to *True*, then debug statements will be showen in both the server output
 and also the console in the browser (accesible via F12 on most browsers, otherwise look for *developer tools*).
 
+Using TrainLink for Websites
+============================
+TrainLink for Websites uses javascript to communicate with the webserver. This gives the benefit of the 
+page being able to constantly update, even after the webpage has loaded.
+
+Adding the .js to your code
+---------------------------
+To enable access to all the TrainLink functions, you need to add one line of code to the top of your body in
+each HTML file where the functions are needed. The line of code is this:
+
+.. sourcecode:: html
+
+    <script src="path/to/trainlink.js"></script>
+
+I recommend putting the ``trainlink.js`` file in a folder named something like *js*.
+In which case, your path to the .js would be ``js/trainlink.js``. ``trainlink.js`` can be found in *API Libraries/TrainLink for Websites* in the file structure you downloaded from
+the TrainLink API GitHub page. If you haven't done this yet head to :doc:`/getting-started`.
+
+Setting up your code for TrainLink
+----------------------------------
+Now you have added the ``trainlink.js`` to your page, you can access all the API functions as long as you call ``trainlink()``.
+If you want more information on how to do this, have a look at :doc:`/api-calls`.
+There are a couple of compulsory functions that you need in your code at some point and these are ``update()`` and ``config()``.
+They should be structured like this:
+
+.. sourcecode:: javascript
+
+    function config(data) {
+        /* Code to be run when a connection is establised to the server */
+    }
+
+    function update(data) {
+        /* Code to be run when the server sends an update packet */
+    }
+
+Contents of the data variable
+"""""""""""""""""""""""""""""
+
+data.updateType will store the type of update that the packet is.
+
++-----------+---------------------+
+|Update type|Data values available|
++===========+=====================+ 
+|"cab"      |data.cab             |
+|           |data.speed           |
+|           |data.direction       |
++-----------+---------------------+
