@@ -35,9 +35,7 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Calls" href="api-calls.html" />
-    <link rel="prev" title="Getting Started" href="getting-started.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,17 +83,24 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-calls.html">API Calls</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api-calls.html#module-trainlink">Javascript Client</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Using the API</a><ul>
+<li><a class="reference internal" href="#configuring-the-server">Configuring the Server</a><ul>
+<li><a class="reference internal" href="#cabs">Cabs</a></li>
+<li><a class="reference internal" href="#server-core">Server core</a><ul>
+<li><a class="reference internal" href="#ip">ip</a></li>
+<li><a class="reference internal" href="#port">port</a></li>
+<li><a class="reference internal" href="#serialport">serialPort</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="internal-workings.html">Internal workings of the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices-tables.html">Indices and tables</a></li>
+<li><a class="reference internal" href="#debug">Debug</a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
+</div>
             
           
         </div>
@@ -162,7 +167,62 @@
   <div class="section" id="using-the-api">
 <h1>Using the API<a class="headerlink" href="#using-the-api" title="Permalink to this headline">¶</a></h1>
 <p>This page details general usage of the API and how to implement it into your code.</p>
-<p><strong>Coming Soon!</strong></p>
+<div class="section" id="configuring-the-server">
+<h2>Configuring the Server<a class="headerlink" href="#configuring-the-server" title="Permalink to this headline">¶</a></h2>
+<p>The server is configured using the file called <code class="docutils literal notranslate"><span class="pre">config.xml</span></code>. Here is how to use this file:</p>
+<div class="section" id="cabs">
+<h3>Cabs<a class="headerlink" href="#cabs" title="Permalink to this headline">¶</a></h3>
+<p>In this section, you can define a cab to add a phonetic name to use instead the DCC address set up in the decoder’s CV.
+Cabs are defined in the format:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;cab&gt;</span>
+    <span class="nt">&lt;name&gt;</span>name of train<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;address&gt;</span>train address<span class="nt">&lt;/address&gt;</span>
+<span class="nt">&lt;/cab&gt;</span>
+</pre></div>
+</div>
+<p>You can delete the default <code class="docutils literal notranslate"><span class="pre">Train1</span></code> and <code class="docutils literal notranslate"><span class="pre">Train2</span></code> profiles, these are just included for testing and example purposes.</p>
+</div>
+<div class="section" id="server-core">
+<h3>Server core<a class="headerlink" href="#server-core" title="Permalink to this headline">¶</a></h3>
+<p>This is where the ports etc for the server are set up.</p>
+<div class="section" id="ip">
+<h4>ip<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h4>
+<p>Controls the IP addresses the server will listen to connections on</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!-- sets ip to 0.0.0.0 (all connections) --&gt;</span>
+<span class="nt">&lt;ip&gt;</span>auto<span class="nt">&lt;/ip&gt;</span>
+
+<span class="c">&lt;!-- sets ip to 127.0.0.1 (local only) --&gt;</span>
+<span class="nt">&lt;ip&gt;</span>local<span class="nt">&lt;/ip&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="port">
+<h4>port<a class="headerlink" href="#port" title="Permalink to this headline">¶</a></h4>
+<p>Controls the TCP/IP port the server listens for connections on</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!-- sets the port to 6789  --&gt;</span>
+<span class="nt">&lt;port&gt;</span>auto<span class="nt">&lt;/port&gt;</span>
+
+<span class="c">&lt;!-- sets the port to 1234 --&gt;</span>
+<span class="nt">&lt;port&gt;</span>1234<span class="nt">&lt;/port&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="serialport">
+<h4>serialPort<a class="headerlink" href="#serialport" title="Permalink to this headline">¶</a></h4>
+<p>Controls which serial port the server attempts to contact the DCC++ BaseStation on.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!-- sets the port to COM1 --&gt;</span>
+<span class="nt">&lt;serialPort&gt;</span>COM1<span class="nt">&lt;/serialPort&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="debug">
+<h3>Debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h3>
+<p>This controls whether the debug statements are enabled or not.
+If <code class="docutils literal notranslate"><span class="pre">enableDebug</span></code> is set to <em>True</em>, then debug statements will be showen in both the server output
+and also the console in the browser (accesible via F12 on most browsers, otherwise look for <em>developer tools</em>).</p>
+</div>
+</div>
 </div>
 
 
@@ -170,15 +230,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api-calls.html" class="btn btn-neutral float-right" title="API Calls" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="getting-started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
