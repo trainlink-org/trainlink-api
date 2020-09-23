@@ -266,22 +266,42 @@ They should be structured like this:</p>
 <p>data.updateType will store the type of update that the packet is.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 66%" />
+<col style="width: 13%" />
+<col style="width: 24%" />
+<col style="width: 63%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Update type</p></th>
 <th class="head"><p>Data values available</p></th>
+<th class="head"><p>Usage</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>“cab”</p></td>
-<td><p>data.cab
-data.speed
-data.direction</p></td>
+<tr class="row-even"><td rowspan="3"><p>“cab”</p></td>
+<td><p>data.cab</p></td>
+<td><p>Stores the address of the cab that the packet refers to</p></td>
+</tr>
+<tr class="row-odd"><td><p>data.speed</p></td>
+<td><p>Stores the new speed of the cab</p></td>
+</tr>
+<tr class="row-even"><td><p>data.direction</p></td>
+<td><p>Stores the direction of the cab</p></td>
+</tr>
+<tr class="row-odd"><td><p>“power”</p></td>
+<td><p>data.state</p></td>
+<td><p>The current state of the trackpower</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>“config”</p></td>
+<td><p>data.cabs</p></td>
+<td><p>A list of all the cabs defined in the xml</p></td>
+</tr>
+<tr class="row-odd"><td><p>data.debug</p></td>
+<td><p>If debug is enabled in the server config.xml</p></td>
 </tr>
 </tbody>
 </table>
+<p>Although a list of defined cabs is provided to the client when they connect, you can still address cabs not on the list.
+These will be added to the internal arrays when you first use each address.</p>
 </div>
 </div>
 </div>

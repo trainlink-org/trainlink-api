@@ -104,10 +104,21 @@ Contents of the data variable
 
 data.updateType will store the type of update that the packet is.
 
-+-----------+---------------------+
-|Update type|Data values available|
-+===========+=====================+ 
-|"cab"      |data.cab             |
-|           |data.speed           |
-|           |data.direction       |
-+-----------+---------------------+
++-----------+---------------------+-------------------------------------------------------+
+|Update type|Data values available|Usage                                                  |
++===========+=====================+=======================================================+
+|"cab"      |data.cab             |Stores the address of the cab that the packet refers to|
+|           +---------------------+-------------------------------------------------------+
+|           |data.speed           |Stores the new speed of the cab                        |
+|           +---------------------+-------------------------------------------------------+
+|           |data.direction       |Stores the direction of the cab                        |
++-----------+---------------------+-------------------------------------------------------+
+|"power"    |data.state           |The current state of the trackpower                    |
++-----------+---------------------+-------------------------------------------------------+
+|"config"   |data.cabs            |A list of all the cabs defined in the xml              |
+|           +---------------------+-------------------------------------------------------+
+|           |data.debug           |If debug is enabled in the server config.xml           |
++-----------+---------------------+-------------------------------------------------------+
+
+Although a list of defined cabs is provided to the client when they connect, you can still address cabs not on the list.
+These will be added to the internal arrays when you first use each address.
