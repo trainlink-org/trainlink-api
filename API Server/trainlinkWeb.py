@@ -15,6 +15,7 @@ class web:
     address = ""
     port = ""
     debug = False
+    websocket = None
 
     # Arrays used for storing runtime data
     power = 0
@@ -49,6 +50,8 @@ class web:
                 await self.stateEvent(user)
     
     async def main (self, websocket, path):
+        print("main")
+        self.websocket = websocket
         await self.register(websocket)
         try:
             await self.stateEvent(websocket)
@@ -104,3 +107,6 @@ class web:
     async def setPower(self, powerState):
         await self.serialUtils.setPower(powerState)
         self.power = powerState
+
+    def update(self):
+        asyncio.run(self.notifyState(self.websocket))

@@ -24,8 +24,8 @@ class xmlUtils:
 
     def listCabs(self):
         cabs = {}
-        lenght = len(self.xmlFile['config']['cabs']['cab'])
-        if lenght == 2:
+        length = len(self.xmlFile['config']['cabs']['cab'])
+        if length == 2:
             cabs[self.xmlFile['config']['cabs']['cab']['name']] = self.xmlFile['config']['cabs']['cab']['address']
         else:
             for cab in range(0, len(self.xmlFile['config']['cabs']['cab'])):
