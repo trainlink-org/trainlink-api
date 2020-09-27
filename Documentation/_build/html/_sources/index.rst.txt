@@ -10,21 +10,6 @@ The TrainLink API allows a DCC++ EX BaseStation to be accessed over a local netw
 In this documentation you will find the getting started guide along with reference for all the different API calls
 
 
-
-
-
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-   /getting-started
-   /api-usage
-   /api-calls
-   /internal-workings
-   /indices-tables
-
-
 **Coming Soon!**
 ----------------
 

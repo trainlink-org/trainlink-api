@@ -2,18 +2,36 @@ try:
     # Imports required trainlink modules
     import trainlinkSerial, trainlinkWeb, trainlinkUtils
     # Imports required external modules
-    import threading, time
+    import threading, time, asyncio
 
     # Sets the location of the config file
     configFile = 'config/config.xml'
 
     # Continues the main logic after the server starts
     def main():
+        serialMsg = serialUtils.startComms()
+        if server.debug:
+            print(serialMsg)
+        readloop = threading.Thread(target=readLoop)
+        readloop.start()
         while True:
             if killThread:
                 break
             serialUtils.updateCabs(server.cabSpeeds, server.cabDirections)
+            readSerial = serialUtils.getLatest()
+            if readSerial != False:
+                if readSerial == "<p2>":
+                    if server.debug:
+                        print("CURRENT OVERLOAD")
+                    server.power = 0
+                    server.update()
             time.sleep(0.001)
+
+    def readLoop():
+        while True:
+            if killThread:
+                break
+            serialUtils.readInLoop()
 
     # Loads in the xml module
     xmlUtils = trainlinkUtils.xmlUtils(configFile)

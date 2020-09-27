@@ -5,11 +5,13 @@ class comms:
 
     ser = None
     prevPacket = {}
+    line = ""
+    oldLine = ""
 
     def __init__(self, port):
         global emulator
         try:
-            self.ser = serial.Serial(baudrate=115200, port=port)
+            self.ser = serial.Serial(baudrate=115200, port=port, timeout=2)
             self.ser.close()
             self.ser.open()
             emulator = False
@@ -37,7 +39,7 @@ class comms:
         
     async def setPower(self, powerState):
         try:
-            powerstate = int(powerState)
+            powerState = int(powerState)
             if powerState == 1:
                 self.write(b'<1>')
             elif powerState == 0:
@@ -54,3 +56,28 @@ class comms:
             pass
         else:
             self.ser.write(packet)
+    
+    def read(self, char):
+        line = self.ser.read_until(char)
+        return line
+    
+    def startComms(self):
+        line1 = self.ser.read_until(b'>')
+        line2 = self.ser.read_until(b'>')
+        line1 = line1.decode("utf-8")
+        line2 = line2.decode("utf-8")
+        return line1 + line2
+
+    def getLatest(self):
+        if self.line == self.oldLine:
+            return False
+        else:
+            self.oldLine = self.line
+            return self.line
+
+    def readInLoop(self):
+        line = self.ser.read_until(b'>')
+        line = line.decode("utf-8")
+        if line != '':
+            self.line = line
+            

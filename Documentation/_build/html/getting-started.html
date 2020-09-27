@@ -35,9 +35,7 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Using the API" href="api-usage.html" />
-    <link rel="prev" title="Welcome to TrainLink API’s documentation!" href="index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,17 +83,20 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-usage.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-calls.html">API Calls</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api-calls.html#module-trainlink">Javascript Client</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
+<li><a class="reference internal" href="#downloading-trainlink">Downloading TrainLink</a></li>
+<li><a class="reference internal" href="#setting-up-the-server">Setting up the server</a><ul>
+<li><a class="reference internal" href="#install-python">Install Python</a></li>
+<li><a class="reference internal" href="#install-dependencies">Install dependencies</a></li>
+<li><a class="reference internal" href="#run-the-server">Run the server</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="internal-workings.html">Internal workings of the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices-tables.html">Indices and tables</a></li>
 </ul>
-
+</li>
+</ul>
+</div>
             
           
         </div>
@@ -162,7 +163,40 @@
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>This page details how to download and install the API, as well as using the demo page.</p>
-<p><strong>Coming Soon!</strong></p>
+<div class="section" id="downloading-trainlink">
+<h2>Downloading TrainLink<a class="headerlink" href="#downloading-trainlink" title="Permalink to this headline">¶</a></h2>
+<p>You will need to download the files for TrainLink from the releases section of the GitHub repository.
+To do this you will need to go to the <a class="reference external" href="https://github.com/matt-hu/trainlink-api/releases">TrainLink repository</a> and click on the latest release that isn’t a prerelease, unless you specifically want to use
+features only in that release. Finally, download the correct file for your OS (.zip for Windows, others use tar.gz) then extract it to a safe place.</p>
+</div>
+<div class="section" id="setting-up-the-server">
+<h2>Setting up the server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h2>
+<p>First you will need to set up the server on the computer that the BaseStation will be plugged into.
+To do this you need to follow the steps below:</p>
+<div class="section" id="install-python">
+<h3>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h3>
+<p>To install Python, you need to head <a class="reference external" href="https://www.python.org/downloads/">here</a> then download the correct version for the operating system you are using.
+If you are using MacOS or Linux, you can skip this stage as python is preinstalled on your OS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using Windows, be sure to tick the box labled ‘Add Python to Path’ as this will enable you to use properly.</p>
+</div>
+<img alt="_images/install-python-path.jpg" src="_images/install-python-path.jpg" />
+</div>
+<div class="section" id="install-dependencies">
+<h3>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>Then, you need to open up your terminal into the root of the files you downloaded earlier and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
+</pre></div>
+</div>
+<p>This will install all of the required pip packages needed to run the server.</p>
+</div>
+<div class="section" id="run-the-server">
+<h3>Run the server<a class="headerlink" href="#run-the-server" title="Permalink to this headline">¶</a></h3>
+<p>Thats it! All the installing is done, and all thats left to do is run <code class="docutils literal notranslate"><span class="pre">server.py</span></code> in the API Server folder.
+However, you might want to check out the <em>Configuring the server</em> section on the <a class="reference internal" href="api-calls.html"><span class="doc">API Calls</span></a> page for details on how to customise the server.</p>
+</div>
+</div>
 </div>
 
 
@@ -170,15 +204,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api-usage.html" class="btn btn-neutral float-right" title="Using the API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to TrainLink API’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

@@ -16,7 +16,7 @@ __Please note: This is still undergoing intial development and not all links etc
 * A Demo page
 
 ## Why should I use TrainLink?
-One of the major features of trainlink is the cross-platform nature of the API. The server runs on Python, meaning it can be run on most platforms. Also, the API library is written in Javascript, so again, it can be run on most platforms.
+One of the major features of TrainLink is the cross-platform nature of the API. The server runs on Python, meaning it can be run on most platforms. Also, the API library is written in Javascript, so again, it can be run on most platforms.
 
 Also, TrainLink is very flexible to different development styles. For example, if you don't need the sync feature, you can just send direct commands.
 
@@ -25,7 +25,7 @@ Also, TrainLink is very flexible to different development styles. For example, i
 1. First, you need to download the latest version of the API from this repository from the releases section (for more information, see the _Releases and Branches_ section below)
 1. After that, to run the server you will need Python installed on your PC. The latest version of Python is recommended, versions 3.7 and 3.8 have been tested. However, this is not to say other versions won't work. You can download Python [here](https://www.python.org/downloads/).  
 __Note:__ When installing Python, make sure to check 'Add Python to Path'
-![How to enable add python to path](/documentation/images/install-python-path.jpg)
+![How to enable add python to path](https://github.com/matt-hu/trainlink-api/blob/master/Documentation/Images/install-python-path.jpg)
 
 1. Next, you need to install the required packages that the server needs. These are:
     * [Websockets](https://pypi.org/project/websockets/)
@@ -36,16 +36,19 @@ __Note:__ When installing Python, make sure to check 'Add Python to Path'
     ```console
     $ pip install -r requirements.txt
     ```
-1. Your TrainLink installation is done! If you want to try out the demo page, start by running the server, then go into the Demo Pages folder
+1. Your TrainLink installation is done! If you want to try out the demo page, start by running the server, then go into the Demo Pages folder and open `DemoPage.html`.
+
+For more information on configuring the server, head to the [readthedocs page](https://trainlink-api.readthedocs.io/en/latest/api-usage.html)
 
 ## Compatible front ends
 Here is a list of compatable front ends that work with TrainLink:
 Name | Location | Maintainer
 -----|----------|-----------
-Demo page | This repository | [Matt-hu](https://github.com/matt-hu)
+Demo page | This repository | [Matt-hu](https://github.com/matt-hu)  
+
 Its looking a little bare at the moment! If you know of or maintain a compatible front end, please let me know and I wil add it here.  
 You can identify compatible front ends from this logo:  
-[![Trainlink compatible icon](/Documentation/images/compatible-icon-small.png)](https://matt-hu.github.io/trainlink-api)
+[![Trainlink compatible icon](https://github.com/matt-hu/trainlink-api/blob/master/Documentation/Images/compatible-icon-small.png)](https://matt-hu.github.io/trainlink-api)
 
 ## What features are supported?
 For the full list of supported features and commands, please see the wiki and full documentation. Here is a brief list of what is currently __fully__ supported:
@@ -79,7 +82,7 @@ Want to suggest a feature, found a bug, or even better, fixed a bug? Please, go 
 ## More Information
 For more information please see the following:
 * [The wiki](https://github.com/matt-hu/trainlink-api/wiki) - FAQ and other repository maintainance help
-* [Readthedocs](trainlink-api.readthedocs.io) - information on the API itself and the function calls
+* [Readthedocs](https://trainlink-api.readthedocs.io) - information on the API itself and the function calls
 
 Many thanks,  
 Matt  
