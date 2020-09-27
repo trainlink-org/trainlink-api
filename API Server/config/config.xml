@@ -5,6 +5,10 @@
             <name>Train1</name>
             <address>1</address>
         </cab>
+        <cab>
+            <name>Train2</name>
+            <address>2</address>
+        </cab>
     </cabs>
     <server>
         <ip>auto</ip>
