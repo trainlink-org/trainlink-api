@@ -62,11 +62,12 @@ class comms:
         return line
     
     def startComms(self):
-        line1 = self.ser.read_until(b'>')
-        line2 = self.ser.read_until(b'>')
-        line1 = line1.decode("utf-8")
-        line2 = line2.decode("utf-8")
-        return line1 + line2
+        if not emulator:
+            line1 = self.ser.read_until(b'>')
+            line2 = self.ser.read_until(b'>')
+            line1 = line1.decode("utf-8")
+            line2 = line2.decode("utf-8")
+            return line1 + line2
 
     def getLatest(self):
         if self.line == self.oldLine:
@@ -76,8 +77,9 @@ class comms:
             return self.line
 
     def readInLoop(self):
-        line = self.ser.read_until(b'>')
-        line = line.decode("utf-8")
-        if line != '':
-            self.line = line
+        if not emulator:
+            line = self.ser.read_until(b'>')
+            line = line.decode("utf-8")
+            if line != '':
+                self.line = line
             

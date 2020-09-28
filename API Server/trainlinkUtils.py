@@ -24,14 +24,11 @@ class xmlUtils:
 
     def listCabs(self):
         cabs = {}
-        length = len(self.xmlFile['config']['cabs']['cab'])
-        if length == 2:
-            cabs[self.xmlFile['config']['cabs']['cab']['name']] = self.xmlFile['config']['cabs']['cab']['address']
-        else:
+        try:
             for cab in range(0, len(self.xmlFile['config']['cabs']['cab'])):
-                print(cab)
-                print(self.xmlFile['config']['cabs']['cab'])
                 cabs[self.xmlFile['config']['cabs']['cab'][cab]['name']] = self.xmlFile['config']['cabs']['cab'][cab]['address']
+        except KeyError:
+            cabs[self.xmlFile['config']['cabs']['cab']['name']] = self.xmlFile['config']['cabs']['cab']['address']
         return cabs
     
     def loadConfig(self):
