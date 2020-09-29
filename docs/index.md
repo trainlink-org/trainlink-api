@@ -9,5 +9,5 @@ Currently, TrainLink supports all of the DCC++ versions ([Classic](https://githu
 The reason these are the only ones supported is simple, the way to communicate with them is open source. If you know of another open-source DCC base station, please open an issue on GitHub and we wil try and support it.
 
 ## Where next?
-If you just want to make use of TrainLink as it is used in software you are using, head to [Using TrainLink]().  
-If you want to develop software using TrainLink, head to [Developing with TrainLink]().
+If you just want to make use of TrainLink as it is used in software you are using, head to [Using TrainLink](/using-trainlink).  
+If you want to develop software using TrainLink, head to [Developing with TrainLink](/developing-with-trainlink).
