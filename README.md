@@ -1,4 +1,5 @@
 # TrainLink API
+[![Downloads (github)](https://img.shields.io/github/downloads/matt-hu/trainlink-api/total)](https://img.shields.io/github/downloads/matt-hu/trainlink-api/total)
 [![Documentation Status](https://readthedocs.org/projects/trainlink-api/badge/?version=latest)](https://trainlink-api.readthedocs.io/en/latest/?badge=latest)
 
 __Please note: This is still undergoing intial development and not all links etc. are guarenteed to work!__  
