@@ -102,10 +102,16 @@ function trainlink() {
 		/* Sends track power packet to the API server */
 		websocket.send(JSON.stringify({class: "power", state: state}));
 	}
+
+	function cabFunction(cab, byte1, byte2="") {
+		websocket.send(JSON.stringify({class: "cabFunction", cab: cab, byte1: byte1, byte2:byte2}));
+	}
+
 	trainlink.initiateTrainLink = initiateTrainLink;
 	trainlink.setSpeed = setSpeed;
 	trainlink.stopCab = stopCab;
 	trainlink.estopCab = estopCab;
 	trainlink.sendCommand = sendCommand;
 	trainlink.setPower = setPower;
+	trainlink.cabFunction = cabFunction;
 }

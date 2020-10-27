@@ -68,6 +68,9 @@ class web:
                 elif data["class"] == "power":
                     await self.setPower(data["state"])
                     await self.notifyState(websocket)
+                elif data["class"] == "cabFunction":
+                    await self.cabFunction(data)
+                    await self.notifyState(websocket)
         finally:
             await self.unregister(websocket)
 
@@ -107,6 +110,9 @@ class web:
     async def setPower(self, powerState):
         await self.serialUtils.setPower(powerState)
         self.power = powerState
+
+    async def cabFunction(self, data):
+        pass
 
     def update(self):
         asyncio.run(self.notifyState(self.websocket))
