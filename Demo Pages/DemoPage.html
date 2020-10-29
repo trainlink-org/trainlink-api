@@ -37,10 +37,10 @@
 		<br>
 
 		<div>
-			<button id="F0" onclick="trainlink.cabFunction(activeCab, 128+16)">F0</button>
-			<button id="F1" onclick="trainlink.cabFunction(activeCab, 128+1)">F1</button>
-			<button id="F2" onclick="trainlink.cabFunction(activeCab, 128+2)">F2</button>
-			<button id="F3" onclick="trainlink.cabFunction(activeCab, 128+4)">F3</button>
+			<button id="F0" onclick="trainlink.cabFunction(activeCab, 0)">F0</button>
+			<button id="F1" onclick="trainlink.cabFunction(activeCab, 1)">F1</button>
+			<button id="F2" onclick="trainlink.cabFunction(activeCab, 2)">F2</button>
+			<button id="F3" onclick="trainlink.cabFunction(activeCab, 3)">F3</button>
 		</div>
 
 		<br>
@@ -125,8 +125,8 @@
 			*/
 			function update(data) {
 				/* The packet recived from the server is passed in as the data variable (this can be called anything)*/
-
 				if (data.updateType == "cab"){
+					cabData = data
 					/* Finds the array address of the cab that the data packet is for */
 					cabID  = cabValues.findIndex(searchArray, data.cab);
 					/* Sets the cab's direction and speed */
@@ -140,6 +140,30 @@
 					if (cabSpeeds[activeCab] != undefined) {
 						speedValue.innerHTML = cabSpeeds[activeCab];
 						slider.value = cabSpeeds[activeCab];
+					}
+
+					if (cabKeys[cabID] == activeCab) {
+						console.log(data.functions)
+						if (data.functions[0]) {
+							f0.style.backgroundColor = 'red'
+						} else {
+							f0.style.backgroundColor = ''
+						}
+						if (data.functions[1]) {
+							f1.style.backgroundColor = 'red'
+						} else {
+							f1.style.backgroundColor = ''
+						}
+						if (data.functions[2]) {
+							f2.style.backgroundColor = 'red'
+						} else {
+							f2.style.backgroundColor = ''
+						}
+						if (data.functions[3]) {
+							f3.style.backgroundColor = 'red'
+						} else {
+							f3.style.backgroundColor = ''
+						}
 					}
 				}else if (data.updateType == "power") {
 					if (data.state == "1") {

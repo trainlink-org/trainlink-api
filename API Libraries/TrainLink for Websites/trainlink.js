@@ -103,8 +103,8 @@ function trainlink() {
 		websocket.send(JSON.stringify({class: "power", state: state}));
 	}
 
-	function cabFunction(cab, byte1, byte2="") {
-		websocket.send(JSON.stringify({class: "cabFunction", cab: cab, byte1: byte1, byte2:byte2}));
+	function cabFunction(cab, func, state=-1) {
+		websocket.send(JSON.stringify({class: "cabFunction", cab: cab, func: func, state: state}));
 	}
 
 	trainlink.initiateTrainLink = initiateTrainLink;

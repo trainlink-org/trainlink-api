@@ -23,7 +23,8 @@ class web:
     cabID = {}
     cabSpeeds = {}
     cabDirections = {}
-    
+    #cabFunctions = {"1": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "2":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+    cabFunctions = {}
     
     # Assigns config variables from arguments
     def __init__ (self, address, port, debug, cabIDxml, serialUtils):
@@ -32,9 +33,20 @@ class web:
         self.port = port
         self.cabID = cabIDxml
         self.debug = debug.capitalize()
+        functionFormat = []
+        for i in range(0,29):
+            functionFormat.append(0)
+        cabNames = ['Train1', 'Train2'] 
         for cab in cabIDxml:
             self.cabSpeeds[cabIDxml[cab]] = 0
             self.cabDirections[cabIDxml[cab]] = 0
+            self.cabFunctions[str(cabIDxml[cab])] = []
+            for i in range(0,29):
+                self.cabFunctions[cabIDxml[cab]].append(0)
+            #self.cabFunctions[cabIDxml[cab]] = 0
+
+        self.cabFunctions['1'].append(0)
+        print(self.cabFunctions)
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
@@ -50,7 +62,7 @@ class web:
                 await self.stateEvent(user)
     
     async def main (self, websocket, path):
-        print("main")
+        #print("main")
         self.websocket = websocket
         await self.register(websocket)
         try:
@@ -83,7 +95,7 @@ class web:
 
     async def stateEvent(self, websocket):
         for cab in self.cabSpeeds:
-            await websocket.send(json.dumps({"type": "state", "updateType": "cab", "cab": cab, "speed": self.cabSpeeds[cab], "direction": self.cabDirections[cab]}))
+            await websocket.send(json.dumps({"type": "state", "updateType": "cab", "cab": cab, "speed": self.cabSpeeds[cab], "direction": self.cabDirections[cab], "functions": self.cabFunctions[cab]}))
         await websocket.send(json.dumps({"type": "state", "updateType": "power", "state": self.power}))
     
     def cabControl(self, data):
@@ -112,7 +124,19 @@ class web:
         self.power = powerState
 
     async def cabFunction(self, data):
-        pass
+        if data["state"] != -1:
+            self.cabFunctions[self.cabID[data["cab"]]][data["func"]] = data["state"]
+        else:
+            newState = self.cabFunctions[self.cabID[data["cab"]]]
+            newState[data["func"]] = int(not newState[data["func"]])
+            print(self.cabFunctions["1"])
+        
+        legacyMode = True
+        if legacyMode:
+            await self.serialUtils.setFunction(self.cabID[data["cab"]], functionStates=self.cabFunctions[self.cabID[data["cab"]]])
+        else:
+            await self.serialUtils.setFunction(self.cabID[data["cab"]], function=data["func"], state=data["state"])
+        
 
     def update(self):
         asyncio.run(self.notifyState(self.websocket))
