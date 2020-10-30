@@ -73,6 +73,7 @@
 				f3 = document.getElementById("F3")
 				cabSpeeds = [],
 				cabDirections = [],
+				cabFunctions = [],
 				activeCab = "",
 				cabList = document.getElementById("cabList")
 				powerToggle = document.getElementById("powerSwitch");
@@ -132,6 +133,7 @@
 					/* Sets the cab's direction and speed */
 					cabDirections[cabKeys[cabID]] = data.direction;
 					cabSpeeds[cabKeys[cabID]] = data.speed;
+					cabFunctions[cabKeys[cabID]] = data.functions
 					/* If the cab is reversing, adds a minus in front of the displayed speed */
 					if (!(cabDirections[cabKeys[cabID]]) && cabSpeeds[cabKeys[cabID]] != 0){
 						cabSpeeds[cabKeys[cabID]] = "-" + String(cabSpeeds[cabKeys[cabID]]);
@@ -143,23 +145,22 @@
 					}
 
 					if (cabKeys[cabID] == activeCab) {
-						console.log(data.functions)
-						if (data.functions[0]) {
+						if (cabFunctions[cabKeys[cabID]][0]) {
 							f0.style.backgroundColor = 'red'
 						} else {
 							f0.style.backgroundColor = ''
 						}
-						if (data.functions[1]) {
+						if (cabFunctions[cabKeys[cabID]][1]) {
 							f1.style.backgroundColor = 'red'
 						} else {
 							f1.style.backgroundColor = ''
 						}
-						if (data.functions[2]) {
+						if (cabFunctions[cabKeys[cabID]][2]) {
 							f2.style.backgroundColor = 'red'
 						} else {
 							f2.style.backgroundColor = ''
 						}
-						if (data.functions[3]) {
+						if (cabFunctions[cabKeys[cabID]][3]) {
 							f3.style.backgroundColor = 'red'
 						} else {
 							f3.style.backgroundColor = ''
@@ -198,6 +199,26 @@
 				activeCab = cabName;
 				slider.value = cabSpeeds[activeCab];
 				speedValue.innerHTML = cabSpeeds[activeCab];
+				if (cabFunctions[activeCab][0]) {
+					f0.style.backgroundColor = 'red'
+				} else {
+					f0.style.backgroundColor = ''
+				}
+				if (cabFunctions[activeCab][1]) {
+					f1.style.backgroundColor = 'red'
+				} else {
+					f1.style.backgroundColor = ''
+				}
+				if (cabFunctions[activeCab][2]) {
+					f2.style.backgroundColor = 'red'
+				} else {
+					f2.style.backgroundColor = ''
+				}
+				if (cabFunctions[activeCab][3]) {
+					f3.style.backgroundColor = 'red'
+				} else {
+					f3.style.backgroundColor = ''
+				}
 			}
 
 			function setPower() {
