@@ -53,69 +53,23 @@ class comms:
         functionStates = kwargs.get('functionStates', None)
         function = kwargs.get('function', None)
         state = kwargs.get('state', None)
-        #print(functionStates)
         legacyMode = True
         if legacyMode:
-            '''functions0 = []
-            functions1 = []
-            functions2 = []
-            functions3 = []
-            functions4 = []
-            for i in range(0,29):
-                if i < 5:
-                    functions0.append(functionStates[i])
-                elif i < 9:
-                    functions1.append(functionStates[i])
-                elif i < 13:
-                    functions2.append(functionStates[i])
-                elif i < 21:
-                    functions3.append(functionStates[i])
-                else:
-                    functions4.append(functionStates[i])
-            
-            print(functions0)
-            print(functions1)
-            print(functions2)
-            print(functions3)
-            print(functions4)
-
-            if 1 in functions0:
-                bytes = trainlinkUtils.funcToBytes(functionStates, 0)
-            
-            if 1 in functions1:
-                bytes = trainlinkUtils.funcToBytes(functionStates, 1)
-            
-            if 1 in functions2:
-                bytes = trainlinkUtils.funcToBytes(functionStates, 2)
-            
-            if 1 in functions3:
-                bytes = trainlinkUtils.funcToBytes(functionStates, 3)
-
-            if 1 in functions4:
-                bytes= trainlinkUtils.funcToBytes(functionStates, 4)'''
-
             bytes = trainlinkUtils.funcToBytes(functionStates, 0)
             self.write(b'<f %d %d>'%(int(cab),bytes[0]))
-            print(bytes)
-
+            
             bytes = trainlinkUtils.funcToBytes(functionStates, 1)
             self.write(b'<f %d %d>'%(int(cab),bytes[0]))
-            print(bytes)
-
+            
             bytes = trainlinkUtils.funcToBytes(functionStates, 2)
             self.write(b'<f %d %d>'%(int(cab),bytes[0]))
-            print(bytes)
 
             bytes = trainlinkUtils.funcToBytes(functionStates, 3)
             self.write(b'<f %d %d %d>'%(int(cab),bytes[0],bytes[1]))
-            print(bytes)
 
             bytes = trainlinkUtils.funcToBytes(functionStates, 4)
             self.write(b'<f %d %d %d>'%(int(cab),bytes[0],bytes[1]))
-            print(bytes)
-            #bytes = trainlinkUtils.funcToBytes(functionStates)
-            #print(bytes)
-            #self.write(b'<f %s %s %s'%(cab,bytes[0],bytes[1]))
+            
         else:
             self.write(b'<F %s %s %s'%(cab,function,state))
         

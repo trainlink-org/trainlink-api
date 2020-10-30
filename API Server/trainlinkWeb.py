@@ -1,4 +1,5 @@
 #imports the sub-modules
+from logging import debug
 import webUtils as utils
 #imports the required external modules
 import websockets, asyncio, json
@@ -43,10 +44,7 @@ class web:
             self.cabFunctions[str(cabIDxml[cab])] = []
             for i in range(0,29):
                 self.cabFunctions[cabIDxml[cab]].append(0)
-            #self.cabFunctions[cabIDxml[cab]] = 0
-
         self.cabFunctions['1'].append(0)
-        print(self.cabFunctions)
 
     def start(self):
         print("Starting server at %s:%s" %(self.address,self.port))
@@ -62,20 +60,16 @@ class web:
                 await self.stateEvent(user)
     
     async def main (self, websocket, path):
-        #print("main")
         self.websocket = websocket
         await self.register(websocket)
         try:
             await self.stateEvent(websocket)
             async for message in websocket:
                 data = json.loads(message)
-                #print(data)
                 if data["class"] == "cabControl":
-                    #print("cabControl")
                     self.cabControl(data)
                     await self.notifyState(websocket)
                 elif data["class"] == "directCommand":
-                    #print(data)
                     await self.directCommand(data["command"])
                 elif data["class"] == "power":
                     await self.setPower(data["state"])
@@ -124,18 +118,22 @@ class web:
         self.power = powerState
 
     async def cabFunction(self, data):
-        if data["state"] != -1:
-            self.cabFunctions[self.cabID[data["cab"]]][data["func"]] = data["state"]
-        else:
-            newState = self.cabFunctions[self.cabID[data["cab"]]]
-            newState[data["func"]] = int(not newState[data["func"]])
-            print(self.cabFunctions["1"])
-        
-        legacyMode = True
-        if legacyMode:
-            await self.serialUtils.setFunction(self.cabID[data["cab"]], functionStates=self.cabFunctions[self.cabID[data["cab"]]])
-        else:
-            await self.serialUtils.setFunction(self.cabID[data["cab"]], function=data["func"], state=data["state"])
+        try:
+            address = utils.obtainAddress(data["cab"], self.cabID)
+            if data["state"] != -1:
+                self.cabFunctions[address][data["func"]] = data["state"]
+            else:
+                newState = self.cabFunctions[address]
+                newState[data["func"]] = int(not newState[data["func"]])
+            
+            legacyMode = True
+            if legacyMode:
+                await self.serialUtils.setFunction(address, functionStates=self.cabFunctions[address])
+            else:
+                await self.serialUtils.setFunction(address, function=data["func"], state=data["state"])
+        except KeyError:
+            if debug:
+                print("Received bad data! (Probably a cab address)")
         
 
     def update(self):
