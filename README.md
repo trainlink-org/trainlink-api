@@ -1,20 +1,29 @@
 # TrainLink API
-[![Downloads (github)](https://img.shields.io/github/downloads/matt-hu/trainlink-api/total)](https://img.shields.io/github/downloads/matt-hu/trainlink-api/total)
 [![Documentation Status](https://readthedocs.org/projects/trainlink-api/badge/?version=latest)](https://trainlink-api.readthedocs.io/en/latest/?badge=latest)
 
-__Please note: This is still undergoing intial development and not all links etc. are guarenteed to work!__  
- This is an API to intergrate with a DCC++ (or DCC++ EX) BaseStation. It provides a simple way to control it over your local network, with multiple instances supported. This means if you open a website using TrainLink on two devices connected to the same server, they will be kept in sync!
+ 
+This is an API to intergrate with a DCC++ (or DCC++ EX) BaseStation. It provides a simple way to control it over your local network, with multiple instances supported. This means if you open a website using TrainLink on two devices connected to the same server, they will be kept in sync!
 
- ## What is in this Repository?
- In this repository you will find the following (the sublist shows supported platforms, whilst ones in italic are planned for the future):
+**Note:** Before version 0.2.0, the whole codebase was kept in one repository. It has now been split into separate repositories to help with maintainance, but the old releases are kept in this repository for now, just for completeness.
+
+## What is in this Repository?
+This repository contains information about TrainLink as a whole, as well as information relevant to all platforms. Also, the readthedocs sources are hosted here.
+
+## Where next?
+If you are an end user looking for more information, please go [here](https://trainlink-org.github.com/).
+
+### Developers:
+The different libraries and servers can be found in the following repositories, just click the link for the one you need (the sublist shows supported platforms, whilst ones in italic are planned for the future):
+
 * The API Server
-    * Python (Cross-platform)
+    * [Python (Cross-platform)](https://github.com/trainlink-org/python-server)
     * _Arduino (ESP32/ESP8266)_
 * The API Library
-    * Javascript (Cross-platform)
+    * [Javascript (Cross-platform)](https://github.com/trainlink-org/javascript-client)
     * _Arduino_
     * _Python_
-* A Demo page
+
+There is a demo for each library in it's repository.
 
 ## Why should I use TrainLink?
 One of the major features of TrainLink is the cross-platform nature of the API. The server runs on Python, meaning it can be run on most platforms. Also, the API library is written in Javascript, so again, it can be run on most platforms.
@@ -88,4 +97,4 @@ For more information please see the following:
 
 Many thanks,  
 Matt  
-\- September 2020
+\- November 2020
