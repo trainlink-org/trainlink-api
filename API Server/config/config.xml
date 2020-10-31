@@ -13,7 +13,8 @@
     <server>
         <ip>auto</ip>
         <port>auto</port>
-        <serialPort>COM8</serialPort>
+        <serialPort>COM3</serialPort>
+        <legacyMode>True</legacyMode>
     </server>
     <debug>
         <enableDebug>True</enableDebug>

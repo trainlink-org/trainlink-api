@@ -58,6 +58,7 @@ Feature | Version
 Cab control | 0.1
 Track power control | 0.1
 Direct command | 0.1
+Cab functions | 0.2
 
 The reason I say fully supported is because the API has the direct command function. This allows DCC++ comands (such as `<t 1 3 126 1>`) to be sent directly to the base s tation, so all DCC++ commands are supported to some degree. Full support means they are handled by the server and are synced between instances.
 

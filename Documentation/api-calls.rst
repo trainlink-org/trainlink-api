@@ -67,3 +67,17 @@ Due to the use of Javascript, pages written using this method can be run as file
         The power state the track will be set to (0 - off, 1 - on)
 
     Changes whether power is applied to both the programming and main tracks. No power = no movement!
+
+.. method:: cabFunction(address, function, state=-1)
+
+    :param address:
+        The address of the cab you want to change the function of
+    
+    :param int function:
+        The function number to change (e.g. 0)
+
+    :param int state:
+        The state to set the funtion to. 0 is off, 1 is on and -1 (the default state) toggles the function.
+
+    Changes a function for a cab. An example of this is lights and sounds (if a DCC sound decoder is fitted). Like the
+    other functions, both the phonetic name and DCC address can be used for the address
