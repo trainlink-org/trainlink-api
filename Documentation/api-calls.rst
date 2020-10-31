@@ -76,7 +76,7 @@ Due to the use of Javascript, pages written using this method can be run as file
     :param int function:
         The function number to change (e.g. 0)
 
-    :param state:
+    :param int state:
         The state to set the funtion to. 0 is off, 1 is on and -1 (the default state) toggles the function.
 
     Changes a function for a cab. An example of this is lights and sounds (if a DCC sound decoder is fitted). Like the
