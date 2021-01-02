@@ -1,5 +1,6 @@
 # TrainLink API
 [![Documentation Status](https://readthedocs.org/projects/trainlink-api/badge/?version=latest)](https://trainlink-api.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://travis-ci.com/trainlink-org/trainlink-api.svg?branch=master)](https://travis-ci.com/trainlink-org/trainlink-api)
 
  
 This is an API to intergrate with a DCC++ (or DCC++ EX) BaseStation. It provides a simple way to control it over your local network, with multiple instances supported. This means if you open a website using TrainLink on two devices connected to the same server, they will be kept in sync!
