@@ -81,3 +81,13 @@ Due to the use of Javascript, pages written using this method can be run as file
 
     Changes a function for a cab. An example of this is lights and sounds (if a DCC sound decoder is fitted). Like the
     other functions, both the phonetic name and DCC address can be used for the address
+
+.. method:: setPoint(motor, state=0)
+
+    :param motor:
+        The address of the point motor you want to change
+
+    :param int state:
+        The state to set the point motor to
+    
+    Changes the state of a point motor on the DCC bus
