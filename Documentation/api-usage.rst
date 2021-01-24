@@ -115,6 +115,8 @@ data.updateType will store the type of update that the packet is.
 +-----------+---------------------+-------------------------------------------------------+
 |"power"    |data.state           |The current state of the trackpower                    |
 +-----------+---------------------+-------------------------------------------------------+
+|"points"   |data.points          |An array with the current state of the points          |
++-----------+---------------------+-------------------------------------------------------+
 |"config"   |data.cabs            |A list of all the cabs defined in the xml              |
 |           +---------------------+-------------------------------------------------------+
 |           |data.debug           |If debug is enabled in the server config.xml           |
